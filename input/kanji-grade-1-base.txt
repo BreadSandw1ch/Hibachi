@@ -14,6 +14,8 @@
 玉||jewel,ball
 左||left
 右||right
+夕||evening
+年||year
 日||day,sun,Japan
 月||moon,month
 火||fire
@@ -30,9 +32,13 @@
 竹||bamboo
 林||grove,forest
 森||forest,woods
+草||grass,weeds,herbs,pasture,write,draft
+虫||insect,bug,temper
+田||rice field,rice paddy
 空||empty,sky,void,vacant,vacuum
 犬||dog
 人||person
+名||name,noted,distinguished,reputation
 音||sound,noise
 目||eye,class,look,insight,experience,care,favor
 口||mouth
@@ -41,6 +47,8 @@
 足||leg,foot,be sufficient
 天||heavens,sky,imperial
 力||power,strong,strain,bear up,exert
+先||before,ahead,previous,future,precedence
+立||stand up
 王||king,rule,magnate
 村||town,village
 町||village,town,block,street
@@ -58,6 +66,7 @@
 車||car
 入||enter,insert
 出||exit,leave
+早||early,fast
 女||woman,female
 男||male
 子||child
@@ -69,12 +78,3 @@
 青||blue,green
 赤||red
 白||white
-先||before,ahead,previous,future,precedence
-早||early,fast
-草||grass,weeds,herbs,pasture,write,draft
-虫||insect,bug,temper
-田||rice field,rice paddy
-名||name,noted,distinguished,reputation
-夕||evening
-年||year
-立||stand up
