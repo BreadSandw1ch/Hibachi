@@ -73,8 +73,8 @@
 小||little,small
 大||large,big
 中||in,inside,middle,mean,center
-正||correct,justice,righteous
 生||life,genuine,birth
+正||correct,justice,righteous
 青||blue,green
 赤||red
 白||white
