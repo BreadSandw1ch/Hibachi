@@ -1,4 +1,4 @@
-package KanjiHandler;
+package InfoHandler;
 
 import java.util.HashSet;
 
