@@ -3,7 +3,7 @@ package InfoHandler;
 import java.util.HashSet;
 import java.util.Objects;
 
-public class Kanji extends Word{
+public class Kanji extends Word {
     private final HashSet<String> readings;
     public Kanji(String kanji, HashSet<String> readings, HashSet<String> meanings) {
         super(kanji, meanings);
