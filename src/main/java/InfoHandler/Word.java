@@ -12,12 +12,12 @@ public class Word {
         this.meanings = meanings;
     }
 
-    public void addMeaning(String meaning) {
-        meanings.add(meaning);
+    public void addMeanings(HashSet<String> meaning) {
+        meanings.addAll(meaning);
     }
 
-    public void removeMeaning(String meaning) {
-        meanings.remove(meaning);
+    public void removeMeanings(HashSet<String> meaning) {
+        meanings.removeAll(meaning);
     }
 
     public boolean hasMeaning(String meaning) {

@@ -10,12 +10,12 @@ public class Kanji extends Word {
         this.readings = readings;
     }
 
-    public void addReading(String reading) {
-        readings.add(reading);
+    public void addReadings(HashSet<String> reading) {
+        readings.addAll(reading);
     }
 
-    public void removeReading(String reading) {
-        readings.remove(reading);
+    public void removeReadings(HashSet<String> reading) {
+        readings.removeAll(reading);
     }
 
     public boolean hasReading(String reading) {
