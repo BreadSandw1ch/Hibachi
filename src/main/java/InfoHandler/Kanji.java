@@ -42,7 +42,7 @@ public class Kanji extends Word {
 
     @Override
     public String toString() {
-        return "Kanji[" +
+        return "Word[" +
                 "word=" + super.getWord() + ", " +
                 "readings=" + readings + ", " +
                 "meanings=" + super.getMeanings() + ']';

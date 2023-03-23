@@ -1,4 +1,4 @@
-package CommandsHandler;
+package InfoHandler;
 
 import InfoHandler.InfoHandler;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
@@ -9,6 +9,8 @@ import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 public class CommandHandler extends ListenerAdapter {
@@ -18,8 +20,18 @@ public class CommandHandler extends ListenerAdapter {
         switch (commandName) {
             case "info"->
                 event.reply(String.valueOf(InfoHandler.getFiles())).queue();
-            case "dictionary" ->
-                event.reply("dictionary").queue();
+            case "dictionary" -> {
+                HashMap<String, String> files = InfoHandler.getFiles();
+                Collection<String> filenames = files.values();
+                HashMap<String, Word> dictionary = InfoHandler.readFiles(filenames);
+                StringBuilder stringBuilder = new StringBuilder();
+                for (Word word:dictionary.values()) {
+                    if(stringBuilder.length() + word.toString().length() > 2000) break;
+                    stringBuilder.append(word).append("\n");
+                }
+                System.out.println(stringBuilder);
+                event.reply(stringBuilder.toString()).queue();
+            }
             case "search" ->
                 event.reply("search").queue();
             case "quiz" ->

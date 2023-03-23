@@ -1,4 +1,4 @@
-import CommandsHandler.CommandHandler;
+import InfoHandler.CommandHandler;
 import InfoHandler.InfoHandler;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;

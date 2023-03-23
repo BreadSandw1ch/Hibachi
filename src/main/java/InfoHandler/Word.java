@@ -48,7 +48,7 @@ public class Word {
 
     @Override
     public String toString() {
-        return "Kanji[" +
+        return "Word[" +
                 "word=" + word + ", " +
                 "meanings=" + meanings + ']';
     }

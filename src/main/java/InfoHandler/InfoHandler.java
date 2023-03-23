@@ -1,6 +1,8 @@
 package InfoHandler;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -8,9 +10,12 @@ import java.util.List;
 public class InfoHandler {
 
     private static final HashMap<String, String> files = new HashMap<>();
-    public HashMap<String, Word> createWords(String filename) {
+    public static HashMap<String, Word> createWords(String filename) {
         HashMap<String, Word> dictionary = new HashMap<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename)) {
+        try (
+                FileInputStream fis = new FileInputStream(filename);
+                InputStreamReader isr = new InputStreamReader(fis, StandardCharsets.UTF_8);
+                BufferedReader reader = new BufferedReader(isr) {
         }) {
             String line = reader.readLine();
             while(line != null) {
@@ -49,7 +54,7 @@ public class InfoHandler {
         }
     }
 
-    public void addWord(String[] fields, HashMap<String, Word> dictionary) {
+    public static void addWord(String[] fields, HashMap<String, Word> dictionary) {
         String identifier = fields[0];
         HashSet<String> readings = new HashSet<>(List.of(fields[1].split(",")));
         Word word;
@@ -63,7 +68,7 @@ public class InfoHandler {
         }
     }
 
-    public HashMap<String, Word> readFiles(List<String> filenames) {
+    public static HashMap<String, Word> readFiles(Collection<String> filenames) {
         HashMap<String, Word> dictionary = new HashMap<>();
         for (String file:filenames) {
             String filename = "input/" + file + ".txt";
