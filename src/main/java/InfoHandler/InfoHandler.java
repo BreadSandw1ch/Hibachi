@@ -7,6 +7,7 @@ import java.util.List;
 
 public class InfoHandler {
 
+    private static final HashMap<String, String> files = new HashMap<>();
     public HashMap<String, Word> createWords(String filename) {
         HashMap<String, Word> dictionary = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filename)) {
@@ -50,11 +51,30 @@ public class InfoHandler {
 
     public HashMap<String, Word> readFiles(List<String> filenames) {
         HashMap<String, Word> dictionary = new HashMap<>();
-        for (String filename:filenames) {
+        for (String file:filenames) {
+            String filename = "input/" + file + ".txt";
             dictionary.putAll(createWords(filename));
         }
         return dictionary;
     }
 
+    public static void initializeFiles(String filename) {
+        try(BufferedReader reader = new BufferedReader(new FileReader(filename))){
+            String line = reader.readLine();
+            while(line != null) {
+                String[] fields = line.split("\\|");
+                String name = fields[0];
+                String file = fields[1];
+                files.put(name,file);
+                line = reader.readLine();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static HashMap<String, String> getFiles() {
+        return files;
+    }
 
 }

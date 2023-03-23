@@ -1,5 +1,6 @@
 package CommandsHandler;
 
+import InfoHandler.InfoHandler;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -16,7 +17,7 @@ public class CommandHandler extends ListenerAdapter {
         String commandName = event.getName();
         switch (commandName) {
             case "info"->
-                event.reply("info").queue();
+                event.reply(String.valueOf(InfoHandler.getFiles())).queue();
             case "dictionary" ->
                 event.reply("dictionary").queue();
             case "search" ->
