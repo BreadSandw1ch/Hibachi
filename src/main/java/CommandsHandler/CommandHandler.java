@@ -1,12 +1,16 @@
-package InfoHandler;
+package CommandsHandler;
 
 import InfoHandler.InfoHandler;
+import InfoHandler.Word;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,7 +23,8 @@ public class CommandHandler extends ListenerAdapter {
         String commandName = event.getName();
         switch (commandName) {
             case "info"->
-                event.reply(String.valueOf(InfoHandler.getFiles())).queue();
+                event.reply(String.valueOf(InfoHandler.getFiles()))
+                        .addActionRow(Button.primary("test", "test")).queue();
             case "dictionary" -> {
                 HashMap<String, String> files = InfoHandler.getFiles();
                 Collection<String> filenames = files.values();
@@ -29,7 +34,6 @@ public class CommandHandler extends ListenerAdapter {
                     if(stringBuilder.length() + word.toString().length() > 2000) break;
                     stringBuilder.append(word).append("\n");
                 }
-                System.out.println(stringBuilder);
                 event.reply(stringBuilder.toString()).queue();
             }
             case "search" ->
@@ -41,6 +45,11 @@ public class CommandHandler extends ListenerAdapter {
             case "help" ->
                 event.reply("test").queue();
         }
+    }
+
+    public void onButtonInteraction(ButtonInteractionEvent event) {
+        MessageChannel channel = event.getChannel();
+        channel.sendMessage(event.getButton().getLabel()).queue();
     }
 
     public void onGuildReady(GuildReadyEvent event) {

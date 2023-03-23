@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Kanji extends Word {
     private final HashSet<String> readings;
-    public Kanji(String kanji, HashSet<String> readings, HashSet<String> meanings) {
+    public Kanji(String kanji, HashSet<String> meanings, HashSet<String> readings) {
         super(kanji, meanings);
         this.readings = readings;
     }
@@ -42,9 +42,6 @@ public class Kanji extends Word {
 
     @Override
     public String toString() {
-        return "Word[" +
-                "word=" + super.getWord() + ", " +
-                "readings=" + readings + ", " +
-                "meanings=" + super.getMeanings() + ']';
+        return super.toString() + "; readings:" + readings;
     }
 }

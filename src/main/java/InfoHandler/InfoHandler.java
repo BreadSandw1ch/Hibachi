@@ -40,9 +40,9 @@ public class InfoHandler {
 
     public static void updateWord(String[] fields, HashMap<String, Word> dictionary) {
         String identifier = fields[0];
-        HashSet<String> readings = new HashSet<>(List.of(fields[1].split(",")));
+        HashSet<String> meanings = new HashSet<>(List.of(fields[1].split(",")));
         if (fields.length > 2) {
-            HashSet<String> meanings = new HashSet<>(List.of(fields[2].split(",")));
+            HashSet<String> readings = new HashSet<>(List.of(fields[2].split(",")));
             Word kanji = dictionary.get(identifier);
             if (kanji instanceof Kanji) {
                 ((Kanji) kanji).addReadings(readings);
@@ -50,20 +50,20 @@ public class InfoHandler {
             }
         } else {
             Word word = dictionary.get(identifier);
-            word.addMeanings(readings);
+            word.addMeanings(meanings);
         }
     }
 
     public static void addWord(String[] fields, HashMap<String, Word> dictionary) {
         String identifier = fields[0];
-        HashSet<String> readings = new HashSet<>(List.of(fields[1].split(",")));
+        HashSet<String> meanings = new HashSet<>(List.of(fields[1].split(",")));
         Word word;
         if (fields.length > 2) {
-            HashSet<String> meanings = new HashSet<>(List.of(fields[2].split(",")));
-            word = new Kanji(identifier, readings, meanings);
+            HashSet<String> readings = new HashSet<>(List.of(fields[2].split(",")));
+            word = new Kanji(identifier, meanings, readings);
             dictionary.put(identifier, word);
         } else {
-            word = new Word(identifier, readings);
+            word = new Word(identifier, meanings);
             dictionary.put(identifier, word);
         }
     }

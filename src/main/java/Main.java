@@ -1,4 +1,4 @@
-import InfoHandler.CommandHandler;
+import CommandsHandler.CommandHandler;
 import InfoHandler.InfoHandler;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -17,7 +17,7 @@ public class Main extends CommandHandler {
         JDABuilder api = JDABuilder.createDefault(token)
                 .addEventListeners(new Main())
                 .setStatus(OnlineStatus.ONLINE);
-        api.setActivity(Activity.playing("sudoku | /help")).build();
+        api.setActivity(Activity.playing("anime | /help")).build();
         InfoHandler.initializeFiles("input/list-of-files.txt");
     }
 }
