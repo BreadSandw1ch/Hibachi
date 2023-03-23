@@ -15,31 +15,15 @@ public class InfoHandler {
             String line = reader.readLine();
             while(line != null) {
                 String[] fields = line.split("\\|");
-                if (fields.length >= 2) {
-                    Word word;
-                    String identifier = fields[0];
-                    HashSet<String> readings = new HashSet<>(List.of(fields[1].split(",")));
-                    if (fields.length >= 3) {
-                        HashSet<String> meanings = new HashSet<>(List.of(fields[2].split(",")));
-                        if (dictionary.containsKey(identifier)) {
-                            Word kanji = dictionary.get(identifier);
-                            if (kanji instanceof Kanji) {
-                                ((Kanji) kanji).addReadings(readings);
-                                kanji.addMeanings(meanings);
-                            }
-                        } else {
-                            word = new Kanji(identifier, readings, meanings);
-                            dictionary.put(identifier, word);
-                        }
-                    } else {
-                        if (dictionary.containsKey(identifier)) {
-                            Word kanji = dictionary.get(identifier);
-                            kanji.addMeanings(readings);
-                        } else {
-                            word = new Word(identifier, readings);
-                            dictionary.put(identifier, word);
-                        }
-                    }
+                if (fields.length < 2) {
+                    line = reader.readLine();
+                    continue;
+                }
+                String word = fields[0];
+                if(dictionary.containsKey(word)) {
+                    updateWord(fields, dictionary);
+                } else {
+                    addWord(fields, dictionary);
                 }
                 line = reader.readLine();
             }
@@ -47,6 +31,36 @@ public class InfoHandler {
             throw new RuntimeException(e);
         }
         return dictionary;
+    }
+
+    public static void updateWord(String[] fields, HashMap<String, Word> dictionary) {
+        String identifier = fields[0];
+        HashSet<String> readings = new HashSet<>(List.of(fields[1].split(",")));
+        if (fields.length > 2) {
+            HashSet<String> meanings = new HashSet<>(List.of(fields[2].split(",")));
+            Word kanji = dictionary.get(identifier);
+            if (kanji instanceof Kanji) {
+                ((Kanji) kanji).addReadings(readings);
+                kanji.addMeanings(meanings);
+            }
+        } else {
+            Word word = dictionary.get(identifier);
+            word.addMeanings(readings);
+        }
+    }
+
+    public void addWord(String[] fields, HashMap<String, Word> dictionary) {
+        String identifier = fields[0];
+        HashSet<String> readings = new HashSet<>(List.of(fields[1].split(",")));
+        Word word;
+        if (fields.length > 2) {
+            HashSet<String> meanings = new HashSet<>(List.of(fields[2].split(",")));
+            word = new Kanji(identifier, readings, meanings);
+            dictionary.put(identifier, word);
+        } else {
+            word = new Word(identifier, readings);
+            dictionary.put(identifier, word);
+        }
     }
 
     public HashMap<String, Word> readFiles(List<String> filenames) {
