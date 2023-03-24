@@ -1,0 +1,47 @@
+一|one|いち
+二|two|に
+三|three|さん
+四|four|よん,し
+五|five|ご
+六|six|ろく
+七|seven|しち,なな
+八|eight|はち
+九|nine|きゅう,く
+十|ten|じゅう,とお
+百|hundred|ひゃく
+千|thousand|せん
+一つ|one|ひとつ
+二つ|two|ふたつ
+三つ|three|みつ
+四つ|four|よっつ
+五つ|five|いつつ
+六つ|six|むつ
+七つ|seven|ななつ
+八つ|eight|やっつ
+九つ|nine|ここのつ
+一こ|one thing|いっこ
+二こ|two things|にこ
+三こ|three things|さんこ
+四こ|four things|よんこ
+五こ|five things|ごこ
+六こ|six things|ろっこ
+七こ|seven things|ななこ
+八こ|eight things|はっこ
+九こ|nine things|きゅうこ
+十こ|ten things|じっこ,じゅっこ
+二百|two hundred|にひゃく
+三百|three hundred|さんびゃく
+四百|four hundred|よんひゃく
+五百|five hundred|ごひゃく
+六百|six hundred|ろっぴゃく
+七百|seven hundred|ななひゃく
+八百|eight hundred|はっぴゃく
+九百|nine hundred|きゅうひゃく
+二千|two thousand|にせん
+三千|three thousand|さんぜん
+四千|four thousand|よんせん
+五千|five thousand|ごせん
+六千|six thousand|ろくせん
+七千|seven thousand|ななせん
+八千|eight thousand|はっせん
+九千|nine thousand|きゅうせん

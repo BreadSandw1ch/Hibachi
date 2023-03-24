@@ -6,8 +6,8 @@
 六|six|ろく
 七|seven|しち,なな
 八|eight|はち
-九|nine|きゅう
-十|ten|じゅう
+九|nine|きゅう,く
+十|ten|じゅう,とお
 百|hundred|ひゃく
 千|thousand|せん
 円|circle,yen,round|えん

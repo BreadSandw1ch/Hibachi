@@ -6,40 +6,21 @@
 金曜日|Friday|きんようび
 土曜日|Saturday|どようび
 今日|today|きょう
-田んぼ|rice field|たんぼ
 天気|weather|てんき
 空気|air|くうき
 夕方|evening|ゆうがた
-大きい|big|おおき
-小さい|small|ちいさい
 上下|top and bottom|じょうげ
 左右|left and right|さゆう
 男女|man and woman|だんじょ
-子ども|child,children|こども
 三人|3 people|さんにん
 人間|human being,human|にんげん
-学ぶ|to learn|まなぶ
 学校|school|がっこう
 一年|one year|いちねん
-生まれう|to be born|うまれる
-生きる|to live|いきる
 先生|teacher|せんせい
 文字|character|もじ
 名前|name|なまえ
-名まえ|name|なまえ
-正しい|correct,right|ただしい
-赤い|red|あかい
-青い|blue|あおい
-白い|white|しろい
-入る|to enter|はいる
-出る|to exit|でる
 入出|enter and exit|にゅうしゅつ
 出入り|exit and enter|でいり
-立つ|to stand|たつ
-休む|to rest,to take a day off|やすむ
 休日|holiday|きゅうじつ
-見る|to see,to look,to watch|みる
-早い|early (adj).|はやい
-早く|early (adv).|はやく
 自動車|automobile,car|じどうしゃ
 電車|train|でんしゃ

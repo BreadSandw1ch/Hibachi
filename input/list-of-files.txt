@@ -2,5 +2,7 @@ Regular Hiragana|hiragana-base
 Hiragana with Diacritics|hiragana-extras
 Regular Katakana|katakana-base
 Katakana with Diacritics|katakana-extras
-Grade 1 Kanji|kanji-grade-1-base
+Grade 1 Only Kanji|kanji-grade-1-base
 Grade 1 Kanji Compound Words|kanji-grade-1-compound
+Grade 1 Kanji + Hiragana Suffixes|kanji-grade-1-extras
+Number Kanji|kanji-numbers

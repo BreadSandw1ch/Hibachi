@@ -1,0 +1,19 @@
+大きい|big|おおき
+小さい|small|ちいさい
+正しい|correct,right|ただしい
+赤い|red|あかい
+青い|blue|あおい
+白い|white|しろい
+早い|early (adj).|はやい
+早く|early (adv).|はやく
+田んぼ|rice field|たんぼ
+子ども|child,children|こども
+名まえ|name|なまえ
+生まれう|to be born|うまれる
+生きる|to live|いきる
+入る|to enter|はいる
+出る|to exit|でる
+立つ|to stand|たつ
+休む|to rest,to take a day off|やすむ
+見る|to see,to look,to watch|みる
+学ぶ|to learn|まなぶ
