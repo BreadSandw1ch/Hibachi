@@ -2,6 +2,7 @@ package CommandsHandler;
 
 import InfoHandler.*;
 import Quiz.Quiz;
+import Dictionary.KanjiDictionary;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
@@ -19,10 +20,12 @@ import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import java.util.*;
 
 public class CommandHandler extends ListenerAdapter {
-    private final HashMap<Long, Quiz> runningGames = new HashMap<Long, Quiz>();
+    private final HashMap<Long, Quiz> runningGames = new HashMap<>();
+    private final HashMap<Long, KanjiDictionary> runningDictionaries = new HashMap<>();
 
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         String commandName = event.getName();
+        User author = event.getUser();
         switch (commandName) {
             case "info"->
                 event.reply(String.valueOf(InfoHandler.getFiles()))
@@ -30,33 +33,39 @@ public class CommandHandler extends ListenerAdapter {
             case "dictionary" -> {
                 HashMap<String, String> files = InfoHandler.getFiles();
                 Collection<String> filenames = files.values();
-                HashMap<String, Word> dictionary = InfoHandler.readFiles(filenames);
-                StringBuilder stringBuilder = new StringBuilder();
-                for (Word word:dictionary.values()) {
-                    if(stringBuilder.length() + word.toString().length() > 2000) break;
-                    stringBuilder.append(word).append("\n");
-                }
-                event.reply(stringBuilder.toString()).queue();
+                HashMap<String, Word> words = InfoHandler.readFiles(filenames);
+                KanjiDictionary dictionary = new KanjiDictionary(words);
+                EmbedBuilder eb = dictionary.createPage();
+                List<Button> buttons = createDictionaryButtons();
+                event.reply(" ").setEmbeds(eb.build()).addActionRow(buttons).queue();
+                runningDictionaries.put(author.getIdLong(), dictionary);
             }
             case "search" -> {
                 String[] command = event.getCommandString().split("\\s+");
-                String key = command[command.length - 1];
-                event.reply("search " + key).queue();
+                String key = command[command.length - 1].toLowerCase();
+                HashMap<String, String> files = InfoHandler.getFiles();
+                Collection<String> filenames = files.values();
+                HashMap<String, Word> dictionary = InfoHandler.readFiles(filenames);
+                Set<Word> results = new HashSet<>();
+                for (Word word: dictionary.values()) {
+                    if (word.hasMeaning(key) || key.equals(word.getWord())) {
+                        results.add(word);
+                    } else if (word instanceof Kanji) {
+                        if (((Kanji) word).hasReading(key)) {
+                            results.add(word);
+                        }
+                    }
+                }
+                event.reply("results: \n" + results).queue();
             }
             case "quiz" -> {
                 HashMap<String, String> files = InfoHandler.getFiles();
                 Collection<String> filenames = files.values();
-                User author = event.getUser();
                 UserInfo user = new UserInfo(author, filenames);
                 Quiz quiz = new Quiz(user);
                 EmbedBuilder eb = quiz.buildQuestion();
                 ArrayList<Word> options = quiz.getMcOptions();
-                List<Button> buttons = new ArrayList<>(){};
-                buttons.add(Button.primary("1", options.get(0).getWord()));
-                buttons.add(Button.primary("2", options.get(1).getWord()));
-                buttons.add(Button.primary("3", options.get(2).getWord()));
-                buttons.add(Button.primary("4", options.get(3).getWord()));
-                buttons.add(Button.danger("x", "Exit"));
+                List<Button> buttons = createGameButtons(options);
                 event.reply(" ").setEmbeds(eb.build()).addActionRow(buttons).queue();
                 runningGames.put(author.getIdLong(), quiz);
             }
@@ -70,36 +79,42 @@ public class CommandHandler extends ListenerAdapter {
     public void onButtonInteraction(ButtonInteractionEvent event) {
         MessageChannel channel = event.getChannel();
         long userID = event.getUser().getIdLong();
+        String id = event.getButton().getId();
+        Message message = event.getMessage();
+        assert id != null;
         if (runningGames.containsKey(userID)) {
             Quiz quiz = runningGames.get(userID);
             List<Word> options = quiz.getMcOptions();
-            String id = event.getButton().getId();
-            assert id != null;
             if (id.equals("x")) {
-                channel.sendMessage("Exiting game").queue();
+                event.reply("Exiting game").queue();
                 runningGames.remove(userID);
             } else {
                 int choiceNum = Integer.parseInt(id);
                 Word choice = options.get(choiceNum - 1);
                 EmbedBuilder eb = quiz.verifyCorrect(choice);
-                Message message = event.getMessage();
                 message.editMessage(" ").setEmbeds(eb.build()).queue();
-                // gonna have to bring this part into its own function
                 if (quiz.getCurrentQuestion() < 10) {
                     eb = quiz.buildQuestion();
                     options = quiz.getMcOptions();
-                    List<Button> buttons = new ArrayList<>(){};
-                    buttons.add(Button.primary("1", options.get(0).getWord()));
-                    buttons.add(Button.primary("2", options.get(1).getWord()));
-                    buttons.add(Button.primary("3", options.get(2).getWord()));
-                    buttons.add(Button.primary("4", options.get(3).getWord()));
-                    buttons.add(Button.danger("x", "Exit"));
+                    List<Button> buttons = createGameButtons(options);
                     event.reply(" ").setEmbeds(eb.build()).addActionRow(buttons).queue();
-                    runningGames.replace(userID, quiz);
                 } else {
 
                     event.reply("Congratulations! You got " + quiz.getNumCorrect() + "/10 correct").queue();
                 }
+            }
+        }
+        if (runningDictionaries.containsKey(userID)) {
+            if (id.equals("x")) {
+                channel.sendMessage("Exiting dictionary").queue();
+                runningDictionaries.remove(userID);
+            } else {
+                int num = Integer.parseInt(id);
+                KanjiDictionary dictionary = runningDictionaries.get(userID);
+                EmbedBuilder eb = dictionary.turnPage(num);
+                List<Button> buttons = createDictionaryButtons();
+                event.reply(" ").setEmbeds(eb.build()).addActionRow(createDictionaryButtons()).queue();
+                message.delete().queue();
             }
         }
     }
@@ -126,5 +141,22 @@ public class CommandHandler extends ListenerAdapter {
                         "or kanji) being searched for", true));
         commandData.add(Commands.slash("help", "gets a list of commands"));
         event.getGuild().updateCommands().addCommands(commandData).queue();
+    }
+
+    public List<Button> createGameButtons(List<Word> options) {
+        List<Button> buttons = new ArrayList<>(){};
+        for (int i = 0; i < options.size() && i < 4; i++) {
+            buttons.add(Button.primary(String.valueOf(i+1), options.get(i).getWord()));
+        }
+        buttons.add(Button.danger("x", "Exit"));
+        return buttons;
+    }
+
+    public List<Button> createDictionaryButtons() {
+        List<Button> buttons = new ArrayList<>();
+        buttons.add(Button.secondary("-1", "<"));
+        buttons.add(Button.secondary("1", ">"));
+        // buttons.add(Button.danger("x", "Exit"));
+        return buttons;
     }
 }

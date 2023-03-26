@@ -16,7 +16,7 @@ public class Quiz {
     private Word correct;
     private HashMap<String, Word> wordList;
     private static final int TERMINATING_CHECK = 1000;
-    private ArrayList<Word> mcOptions = new ArrayList<>();
+    private final ArrayList<Word> mcOptions = new ArrayList<>();
     private static final int NUM_QUESTIONS = 10;
     private int currentQuestion = 0;
     private int numCorrect = 0;
@@ -101,7 +101,7 @@ public class Quiz {
             embedBuilder.setFooter("Incorrect. Answer: " + correct.getWord());
         }
         currentQuestion += 1;
-        mcOptions = new ArrayList<>();
+        clearOptions();
         return embedBuilder;
     }
 
