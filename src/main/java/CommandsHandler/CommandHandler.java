@@ -2,7 +2,7 @@ package CommandsHandler;
 
 import InfoHandler.*;
 import Quiz.Quiz;
-import Dictionary.KanjiDictionary;
+import Dictionary.*;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
@@ -46,17 +46,19 @@ public class CommandHandler extends ListenerAdapter {
                 HashMap<String, String> files = InfoHandler.getFiles();
                 Collection<String> filenames = files.values();
                 HashMap<String, Word> dictionary = InfoHandler.readFiles(filenames);
-                Set<Word> results = new HashSet<>();
+                HashMap<String, Word> results = new HashMap<>();
                 for (Word word: dictionary.values()) {
                     if (word.hasMeaning(key) || key.equals(word.getWord())) {
-                        results.add(word);
+                        results.put(word.getWord(), word);
                     } else if (word instanceof Kanji) {
                         if (((Kanji) word).hasReading(key)) {
-                            results.add(word);
+                            results.put(word.getWord(), word);
                         }
                     }
                 }
-                event.reply("results: \n" + results).queue();
+                KanjiSearch search = new KanjiSearch(results, key);
+                EmbedBuilder eb = search.createPage();
+                event.reply(" ").setEmbeds(eb.build()).addActionRow(createDictionaryButtons()).queue();
             }
             case "quiz" -> {
                 HashMap<String, String> files = InfoHandler.getFiles();

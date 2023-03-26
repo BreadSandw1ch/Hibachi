@@ -1,6 +1,7 @@
 package Dictionary;
 
 import InfoHandler.Word;
+import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.util.HashMap;
 
@@ -13,6 +14,13 @@ public class KanjiSearch extends KanjiDictionary{
 
     public String getSearch() {
         return search;
+    }
+
+    @Override
+    public EmbedBuilder createPage() {
+        EmbedBuilder eb = super.createPage();
+        eb.setTitle("Search Results: " + search);
+        return eb;
     }
 
 
