@@ -3,6 +3,7 @@ package CommandsHandler;
 import InfoHandler.*;
 import Quiz.Quiz;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
@@ -54,13 +55,10 @@ public class CommandHandler extends ListenerAdapter {
                 buttons.add(Button.primary("1", options.get(0).getWord()));
                 buttons.add(Button.primary("2", options.get(1).getWord()));
                 buttons.add(Button.primary("3", options.get(2).getWord()));
-                buttons.add(Button.primary("4", options.get(0).getWord()));
+                buttons.add(Button.primary("4", options.get(3).getWord()));
                 buttons.add(Button.danger("x", "Exit"));
-                event.reply(" ").setEmbeds(eb.build()).addActionRow(buttons).queue(message -> {
-                    System.out.println(quiz.getCorrect());
-                    long messageID = message.getInteraction().getIdLong();
-                    runningGames.put(messageID, quiz);
-                });
+                event.reply(" ").setEmbeds(eb.build()).addActionRow(buttons).queue();
+                runningGames.put(author.getIdLong(), quiz);
             }
             case "keyword" ->
                 event.reply("keyword").queue();
@@ -71,9 +69,38 @@ public class CommandHandler extends ListenerAdapter {
 
     public void onButtonInteraction(ButtonInteractionEvent event) {
         MessageChannel channel = event.getChannel();
-        long messageID = Objects.requireNonNull(event.getMessage().getInteraction()).getIdLong();
-        if (runningGames.containsKey(messageID)) {
-            channel.sendMessage(Objects.requireNonNull(event.getButton().getId())).queue();
+        long userID = event.getUser().getIdLong();
+        if (runningGames.containsKey(userID)) {
+            Quiz quiz = runningGames.get(userID);
+            List<Word> options = quiz.getMcOptions();
+            String id = event.getButton().getId();
+            assert id != null;
+            if (id.equals("x")) {
+                channel.sendMessage("Exiting game").queue();
+                runningGames.remove(userID);
+            } else {
+                int choiceNum = Integer.parseInt(id);
+                Word choice = options.get(choiceNum - 1);
+                EmbedBuilder eb = quiz.verifyCorrect(choice);
+                Message message = event.getMessage();
+                message.editMessage(" ").setEmbeds(eb.build()).queue();
+                // gonna have to bring this part into its own function
+                if (quiz.getCurrentQuestion() < 10) {
+                    eb = quiz.buildQuestion();
+                    options = quiz.getMcOptions();
+                    List<Button> buttons = new ArrayList<>(){};
+                    buttons.add(Button.primary("1", options.get(0).getWord()));
+                    buttons.add(Button.primary("2", options.get(1).getWord()));
+                    buttons.add(Button.primary("3", options.get(2).getWord()));
+                    buttons.add(Button.primary("4", options.get(3).getWord()));
+                    buttons.add(Button.danger("x", "Exit"));
+                    event.reply(" ").setEmbeds(eb.build()).addActionRow(buttons).queue();
+                    runningGames.replace(userID, quiz);
+                } else {
+
+                    event.reply("Congratulations! You got " + quiz.getNumCorrect() + "/10 correct").queue();
+                }
+            }
         }
     }
 

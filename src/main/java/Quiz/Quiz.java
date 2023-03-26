@@ -5,6 +5,7 @@ import InfoHandler.UserInfo;
 import InfoHandler.Word;
 import net.dv8tion.jda.api.EmbedBuilder;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
@@ -15,8 +16,12 @@ public class Quiz {
     private Word correct;
     private HashMap<String, Word> wordList;
     private static final int TERMINATING_CHECK = 1000;
-    private final ArrayList<Word> mcOptions = new ArrayList<>();
-    private static final int NUM_CHOICES = 4;
+    private ArrayList<Word> mcOptions = new ArrayList<>();
+    private static final int NUM_QUESTIONS = 10;
+    private int currentQuestion = 0;
+    private int numCorrect = 0;
+    private EmbedBuilder embedBuilder;
+
     public Quiz(UserInfo user) {
         this.user = user;
     }
@@ -28,6 +33,10 @@ public class Quiz {
 
     public Word getCorrect() {
         return correct;
+    }
+
+    public int getCurrentQuestion() {
+        return currentQuestion;
     }
 
     private Word getAnswer() {
@@ -43,6 +52,10 @@ public class Quiz {
         return null;
     }
 
+    public int getNumCorrect() {
+        return numCorrect;
+    }
+
     public ArrayList<Word> getMcOptions() {
         return mcOptions;
     }
@@ -52,34 +65,44 @@ public class Quiz {
     }
 
     public EmbedBuilder buildQuestion() {
-        EmbedBuilder eb = new EmbedBuilder();
+        embedBuilder = new EmbedBuilder();
         wordList = InfoHandler.readFiles(user.files());
         correct = getAnswer();
-        mcOptions.add(correct);
         Random random = new Random();
         int correctChoice = random.nextInt(1,5);
-        eb.setTitle("Currently a mock-up for what is to come:");
+        embedBuilder.setTitle("What means " + correct.getMeanings() + "?");
         String[] optionEmotes = new String[]{":one:", ":two:", ":three:", ":four:"};
         int i = 0;
         while(i < optionEmotes.length) {
             Word word = getAnswer();
             if (word == null || mcOptions.size() >= wordList.size()) break;
-            if (mcOptions.contains(word)) continue;
-            mcOptions.add(word);
+            if (mcOptions.contains(word) || Objects.equals(word, correct)) continue;
             if (i+1 == correctChoice) {
-                eb.addField(optionEmotes[i] + " - **" + correct.getWord() + "**", " ", false);
+                embedBuilder.addField(optionEmotes[i] + " - **" + correct.getWord() + "**", " ", false);
+                mcOptions.add(correct);
                 i++;
                 if (i >= optionEmotes.length) break;
             }
-            eb.addField(optionEmotes[i] + " - **" + word.getWord() + "**", " ", false);
+            embedBuilder.addField(optionEmotes[i] + " - **" + word.getWord() + "**", " ", false);
+            mcOptions.add(word);
             i++;
         }
-
-        return eb;
+        embedBuilder.setColor(Color.YELLOW);
+        return embedBuilder;
     }
 
-    public boolean verifyCorrect(Word word) {
-        return Objects.equals(word, correct);
+    public EmbedBuilder verifyCorrect(Word word) {
+        if (Objects.equals(word, correct)) {
+            embedBuilder.setColor(Color.GREEN);
+            embedBuilder.setFooter("Correct!");
+            numCorrect += 1;
+        } else {
+            embedBuilder.setColor(Color.RED);
+            embedBuilder.setFooter("Incorrect. Answer: " + correct.getWord());
+        }
+        currentQuestion += 1;
+        mcOptions = new ArrayList<>();
+        return embedBuilder;
     }
 
 
