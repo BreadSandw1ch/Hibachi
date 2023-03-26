@@ -22,17 +22,26 @@ import java.util.*;
 public class CommandHandler extends ListenerAdapter {
     private final HashMap<Long, Quiz> runningGames = new HashMap<>();
     private final HashMap<Long, KanjiDictionary> runningDictionaries = new HashMap<>();
+    private final HashMap<Long, UserInfo> users = new HashMap<>();
 
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         String commandName = event.getName();
         User author = event.getUser();
-        switch (commandName) {
+        UserInfo user;
+        HashMap<String, String> files = InfoHandler.getFiles();
+        Collection<String> filenames = files.values();
+        if (users.containsKey(author.getIdLong())) {
+            user = users.get(author.getIdLong());
+        } else {
+            user = new UserInfo(author, filenames);
+            users.put(author.getIdLong(), user);
+        }
+
+            switch (commandName) {
             case "info"->
                 event.reply(String.valueOf(InfoHandler.getFiles()))
                         .addActionRow(Button.primary("test", "test")).queue();
             case "dictionary" -> {
-                HashMap<String, String> files = InfoHandler.getFiles();
-                Collection<String> filenames = files.values();
                 HashMap<String, Word> words = InfoHandler.readFiles(filenames);
                 KanjiDictionary dictionary = new KanjiDictionary(words);
                 EmbedBuilder eb = dictionary.createPage();
@@ -43,8 +52,6 @@ public class CommandHandler extends ListenerAdapter {
             case "search" -> {
                 String[] command = event.getCommandString().split("\\s+");
                 String key = command[command.length - 1].toLowerCase();
-                HashMap<String, String> files = InfoHandler.getFiles();
-                Collection<String> filenames = files.values();
                 HashMap<String, Word> dictionary = InfoHandler.readFiles(filenames);
                 HashMap<String, Word> results = new HashMap<>();
                 for (Word word: dictionary.values()) {
@@ -61,9 +68,6 @@ public class CommandHandler extends ListenerAdapter {
                 event.reply(" ").setEmbeds(eb.build()).addActionRow(createDictionaryButtons()).queue();
             }
             case "quiz" -> {
-                HashMap<String, String> files = InfoHandler.getFiles();
-                Collection<String> filenames = files.values();
-                UserInfo user = new UserInfo(author, filenames);
                 Quiz quiz = new Quiz(user);
                 EmbedBuilder eb = quiz.buildQuestion();
                 ArrayList<Word> options = quiz.getMcOptions();
@@ -71,8 +75,8 @@ public class CommandHandler extends ListenerAdapter {
                 event.reply(" ").setEmbeds(eb.build()).addActionRow(buttons).queue();
                 runningGames.put(author.getIdLong(), quiz);
             }
-            case "keyword" ->
-                event.reply("keyword").queue();
+            case "settings" ->
+                event.reply("settings").queue();
             case "help" ->
                 event.reply("test").queue();
         }
