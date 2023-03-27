@@ -3,23 +3,32 @@ package InfoHandler;
 import net.dv8tion.jda.api.entities.User;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class UserInfo {
     private final User user;
     private final Collection<String> files;
+    private HashMap<String, Word> words;
 
-    public UserInfo(User user, Collection<String> files) {
+    public UserInfo(User user) {
         this.user = user;
-        this.files = files;
+        HashMap<String, String> fileMap = InfoHandler.getFiles();
+        files = fileMap.values();
+        words = new HashMap<>();
     }
 
     public User user() {
         return user;
     }
 
-    public Collection<String> files() {
+    public Collection<String> getFiles() {
         return files;
+    }
+
+    public HashMap<String, Word> getWords() {
+        words = InfoHandler.readFiles(files);
+        return words;
     }
 
     @Override

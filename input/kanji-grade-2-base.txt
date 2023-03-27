@@ -1,0 +1,85 @@
+外|outside|そと
+頭|head|あたま
+顔|face|かお
+首|neck|くび
+毛|hair|け
+牛|cow|うし
+馬|horse|うま
+鳥|bird|とり
+羽|feather,wing|はね
+肉|meat,flesh|にく
+魚|fish|さかな
+米|rice|こめ
+麦|wheat,barley|むぎ
+家|house|いえ
+親|parent|おや
+父|father|ちち
+母|mother|はは
+兄|elder brother|あに
+弟|younger brother|おとうと
+姉|elder sister|あね
+妹|younger sister|いもうと
+野原|field｜のはら
+岩|rock|いわ
+谷|valley|たに
+土地|land|とち
+池|pond|いけ
+海|sea,ocean|うみ
+晴れ|clear|はれ
+曇|cloud|くも
+雪|snow|ゆき
+風|wind|かぜ
+星|star|ほし
+春|spring|はる
+秋|autumn|あき
+冬|winter|ふゆ
+色|color|いろ
+黄色|yellow|きいろ
+黒|black|くろ
+茶色|brown|ちゃいろ
+お茶|Japanese tea|おちゃ
+方角|direction|ほうがく
+東|east|ひがし
+西|west|にし
+南|south|みなみ
+北|north|きた
+今|now|いま
+朝|morning|あさ
+昼|daytime|ひる
+夜|night|よる
+時|time,hour|とき,じ
+間|interval|あいだ,ま
+時間|time|じかん
+半分|half|はんぶん
+午後|afternoon,p.m.|ごご
+午前|morning,a.m.|ごぜん
+毎日|everyday|まいにち
+週|week|しゅう
+門|gate|もん
+戸|door|と
+寺|temple｜てら
+店|shop,store|めせ
+台|stand,holder|だい
+教室|classroom|きょうしつ
+教|teach|きょう
+室|room|しつ
+公園|park|こうえん
+交番|police box|こうばん
+道|road|みち
+市場|market|いちば,しじょう
+里|village,parent's home|さと
+東京|Tokyo|とうきょう
+刀|sword,katana|かたな
+弓|bow|ゆみ
+矢|arrow|や
+国|country,nation|くに
+語る|to say,to narrate|かたる
+国語|national language|こくご
+語|language|ご
+数|number|かず
+算数|arithmetic,mathematics|さんすう
+理科|science|りか
+科目|subject|かもく
+社会|social studies,society|しゃかい
+会う|to meet|あう
+

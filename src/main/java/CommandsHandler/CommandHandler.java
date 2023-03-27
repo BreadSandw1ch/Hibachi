@@ -33,7 +33,7 @@ public class CommandHandler extends ListenerAdapter {
         if (users.containsKey(author.getIdLong())) {
             user = users.get(author.getIdLong());
         } else {
-            user = new UserInfo(author, filenames);
+            user = new UserInfo(author);
             users.put(author.getIdLong(), user);
         }
 

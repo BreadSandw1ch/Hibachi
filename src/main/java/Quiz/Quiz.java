@@ -66,7 +66,7 @@ public class Quiz {
 
     public EmbedBuilder buildQuestion() {
         embedBuilder = new EmbedBuilder();
-        wordList = InfoHandler.readFiles(user.files());
+        wordList = InfoHandler.readFiles(user.getFiles());
         correct = getAnswer();
         Random random = new Random();
         int correctChoice = random.nextInt(1,5);
