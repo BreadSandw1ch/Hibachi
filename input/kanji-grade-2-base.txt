@@ -1,85 +1,160 @@
-外|outside|そと
-頭|head|あたま
-顔|face|かお
-首|neck|くび
-毛|hair|け
-牛|cow|うし
-馬|horse|うま
-鳥|bird|とり
-羽|feather,wing|はね
-肉|meat,flesh|にく
-魚|fish|さかな
-米|rice|こめ
-麦|wheat,barley|むぎ
-家|house|いえ
-親|parent|おや
-父|father|ちち
-母|mother|はは
-兄|elder brother|あに
-弟|younger brother|おとうと
-姉|elder sister|あね
-妹|younger sister|いもうと
-野原|field｜のはら
-岩|rock|いわ
-谷|valley|たに
-土地|land|とち
-池|pond|いけ
-海|sea,ocean|うみ
-晴れ|clear|はれ
-曇|cloud|くも
-雪|snow|ゆき
-風|wind|かぜ
-星|star|ほし
-春|spring|はる
-秋|autumn|あき
-冬|winter|ふゆ
-色|color|いろ
-黄色|yellow|きいろ
-黒|black|くろ
-茶色|brown|ちゃいろ
-お茶|Japanese tea|おちゃ
-方角|direction|ほうがく
-東|east|ひがし
-西|west|にし
-南|south|みなみ
-北|north|きた
-今|now|いま
-朝|morning|あさ
-昼|daytime|ひる
-夜|night|よる
-時|time,hour|とき,じ
-間|interval|あいだ,ま
-時間|time|じかん
-半分|half|はんぶん
-午後|afternoon,p.m.|ごご
-午前|morning,a.m.|ごぜん
-毎日|everyday|まいにち
-週|week|しゅう
-門|gate|もん
-戸|door|と
-寺|temple｜てら
-店|shop,store|めせ
-台|stand,holder|だい
-教室|classroom|きょうしつ
-教|teach|きょう
-室|room|しつ
-公園|park|こうえん
-交番|police box|こうばん
-道|road|みち
-市場|market|いちば,しじょう
-里|village,parent's home|さと
-東京|Tokyo|とうきょう
-刀|sword,katana|かたな
-弓|bow|ゆみ
-矢|arrow|や
-国|country,nation|くに
-語る|to say,to narrate|かたる
-国語|national language|こくご
-語|language|ご
-数|number|かず
-算数|arithmetic,mathematics|さんすう
-理科|science|りか
-科目|subject|かもく
-社会|social studies,society|しゃかい
-会う|to meet|あう
-
+引|pull|イン,ひ-く,ひ-ける
+羽|feather|ウ,は,はね
+雲|cloud|ウン,くも
+園|garden|エン,その
+遠|far|エン,（オン）,とお-い
+何|what|カ,なに,（なん）
+科|section|カ
+夏|summer|カ,（ゲ）,なつ
+家|house|カ,ケ,いえ,や
+歌|song|カ,うた,うた-う
+画|tableau|ガ,カク
+回|times|カイ,（エ）,まわ-る,まわ-す
+会|association|カイ,エ,あ-う
+海|sea|カイ,うみ
+絵|picture|カイ,エ
+外|outside|ガイ,ゲ,そと,ほか,はず-す,はず-れる
+角|angle|カク,かど,つの
+楽|pleasure|ガク,ラク,たの-しい,たの-しむ
+活|active|カツ
+間|interval|カン,ケン,あいだ,ま
+丸|circle|ガン,まる,まる-い,まる-める
+岩|boulder|ガン,いわ
+顔|face|ガン,かお
+汽|steam|キ
+記|write down|キ,しる-す
+帰|return|キ,かえ-る,かえ-す
+弓|bow (archery,violin)|キュウ,ゆみ
+牛|cow|ギュウ,うし
+魚|fish|ギョ,うお,さかな
+京|capital|キョウ,ケイ
+強|strong|キョウ,ゴウ,つよ-い,つよ-まる,つよ-める,し-いる
+教|teach|キョウ,おし-える,おそ-わる
+近|near|キン,ちか-い
+兄|older brother|ケイ,（キョウ）,あに
+形|shape|ケイ,ギョウ,かた,かたち
+計|measure|ケイ,はか-る,はか-らう
+元|origin|ゲン,ガン,もと
+言|say|ゲン,ゴン,い-う,こと
+原|field|ゲン,はら
+戸|door|コ,と
+古|old|コ,ふる-い,ふる-す
+午|noon|ゴ
+後|behind|ゴ,コウ,のち,うし-ろ,あと,おく-れる
+語|language|ゴ,かた-る,かた-らう
+工|craft|コウ,ク
+公|public|コウ,おおやけ
+広|wide|コウ,ひろ-い,ひろ-まる,ひろ-める,ひろ-がる,ひろ-げる
+交|mix|コウ,まじ-わる,まじ-える,ま-じる,ま-ざる,ま-ぜる,か-う,か-わす
+光|ray|コウ,ひか-る,ひかり
+考|think|コウ,かんが-える
+行|go|コウ,ギョウ,（アン）,い-く,ゆ-く,おこな-う
+高|tall,expensive|コウ,たか-い,たか,たか-まる,たか-める
+黄|yellow|コウ,オウ,き,（こ）
+合|fit|ゴウ,ガッ,（カッ）,あ-う,あ-わす,あ-わせる
+谷|valley|コク,たに
+国|country|コク,くに
+黒|black|コク,くろ,くろ-い
+今|now|コン,キン,いま
+才|genius|サイ
+細|thin|サイ,ほそ-い,ほそ-る,こま-か,こま-かい
+作|make|サク,サ,つく-る
+算|calculate|サン
+止|stop|シ,と-まる,と-める
+市|market|シ,いち
+矢|arrow|シ,や
+姉|older sister|シ,あね
+思|think|シ,おも-う
+紙|paper|シ,かみ
+寺|Buddhist temple|ジ,てら
+自|oneself|ジ,シ,みずか-ら
+時|time|ジ,とき
+室|room|シツ,むろ
+社|company|シャ,やしろ
+弱|weak|ジャク,よわ-い,よわ-る,よわ-まる,よわ-める
+首|neck|シュ,くび
+秋|autumn|シュウ,あき
+週|week|シュウ
+春|springtime|シュン,はる
+書|write|ショ,か-く
+少|few|ショウ,すく-ない,すこ-し
+場|place|ジョウ,ば
+色|color|ショク,シキ,いろ
+食|eat,meal|ショク,（ジキ）,く-う,く-らう,た-べる
+心|heart|シン,こころ
+新|new|シン,あたら-しい,あら-た,にい
+親|parent|シン,おや,した-しい,した-しむ
+図|diagram|ズ,ト,はか-る
+数|number|スウ,（ス）,かず,かぞ-える
+西|west|セイ,サイ,にし
+声|voice|セイ,（ショウ）,こえ,（こわ）
+星|star|セイ,（ショウ）,ほし
+晴|clear up|セイ,は-れる,は-らす
+切|cut|セツ,（サイ）,き-る,き-れる
+雪|snow|セツ,ゆき
+船|boat|セン,ふね,（ふな）
+線|line|セン
+前|in front|ゼン,まえ
+組|association|ソ,く-む,くみ
+走|run|ソウ,はし-る
+多|many|タ,おお-い
+太|thick|タイ,タ,ふと-い,ふと-る
+体|body|タイ,テイ,からだ
+台|pedestal|ダイ,タイ
+地|ground|チ,ジ
+池|pond|チ,いけ
+知|know|チ,し-る
+茶|tea|チャ,サ
+昼|daytime|チュウ,ひる
+長|long|チョウ,なが-い
+鳥|bird|チョウ,とり
+朝|morning|チョウ,あさ
+直|straight|チョク,ジキ,ただ-ちに,なお-す,なお-る
+通|pass through|ツウ,（ツ）,とお-る,とお-す,かよ-う
+弟|younger brother|テイ,（ダイ）,（デ）,おとうと
+店|shop|テン,みせ
+点|point|テン
+電|electricity|デン
+刀|sword|トウ,かたな
+冬|winter|トウ,ふゆ
+当|hit|トウ,あ-たる,あ-てる
+東|east|トウ,ひがし
+答|answer|トウ,こた-える,こた-え
+頭|head|トウ,ズ,（ト）,あたま,かしら
+同|same|ドウ,おな-じ
+道|road|ドウ,（トウ）,みち
+読|read|ドク,トク,（トウ）,よ-む
+内|inside|ナイ,（ダイ）,うち
+南|south|ナン,（ナ）,みなみ
+肉|meat|ニク
+馬|horse|バ,うま,（ま）
+売|sell|バイ,う-る,う-れる
+買|buy|バイ,か-う
+麦|wheat|バク,むぎ
+半|half|ハン,なか-ば
+番|"ones turn "|バン
+父|father|フ,ちち
+風|wind|フウ,（フ）,かぜ,（かざ）
+分|part,minute of time|ブン,フン,ブ,わ-ける,わ-かれる,わ-かる,わ-かつ
+聞|hear|ブン,モン,き-く,き-こえる
+米|rice|ベイ,マイ,こめ
+歩|walk|ホ,ブ,（フ）,ある-く,あゆ-む
+母|mother|ボ,はは
+方|direction|ホウ,かた
+北|north|ホク,きた
+毎|every|マイ
+妹|younger sister|マイ,いもうと
+万|ten thousand|マン,バン
+明|bright|メイ,ミョウ,あ-かり,あか-るい,あか-るむ,あか-らむ,あき-らか,あ-ける,あ-く,あ-くる,あ-かす
+鳴|chirp|メイ,な-く,な-る,な-らす
+毛|hair|モウ,け
+門|gates|モン,かど
+夜|night|ヤ,よ,よる
+野|field|ヤ,の
+友|friend|ユウ,とも
+用|use|ヨウ,もち-いる
+曜|day of the week|ヨウ
+来|come|ライ,く-る,きた-る,きた-す
+里|village|リ,さと
+理|reason|リ
+話|talk|ワ,はな-す,はなし

@@ -20,17 +20,14 @@ public class InfoHandler {
             String line = reader.readLine();
             while(line != null) {
                 String[] fields = line.split("\\|");
-                if (fields.length < 2) {
-                    line = reader.readLine();
-                    continue;
-                }
+                line = reader.readLine();
+                if (fields.length < 2) continue;
                 String word = fields[0];
                 if(dictionary.containsKey(word)) {
                     updateWord(fields, dictionary);
                 } else {
                     addWord(fields, dictionary);
                 }
-                line = reader.readLine();
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

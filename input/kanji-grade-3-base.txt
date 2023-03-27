@@ -1,0 +1,200 @@
+悪|bad|アク,オ,わる-い
+安|cheap|アン,やす-い
+暗|dark|アン,くら-い
+医|doctor|イ
+委|committee|イ,ゆだ-ねる
+意|idea|イ
+育|nurture|イク,そだ-つ,そだ-てる,はぐく-む
+員|member|イン
+院|institution|イン
+飲|drink|イン,の-む
+運|carry|ウン,はこ-ぶ
+泳|swim|エイ,およ-ぐ
+駅|station|エキ
+央|center|オウ
+横|side|オウ,よこ
+屋|roof|オク,や
+温|warm|オン,あたた-か,あたた-かい,あたた-まる,あたた-める
+化|change|カ,ケ,ば-ける,ば-かす
+荷|luggage|カ,に
+界|world|カイ
+開|open|カイ,ひら-く,ひら-ける,あ-く,あ-ける
+階|floor of a building|カイ
+寒|cold|カン,さむ-い
+感|feeling|カン
+漢|China|カン
+館|public building|カン,やかた
+岸|beach|ガン,きし
+起|wake up|キ,お-きる,お-こる,お-こす
+期|period of time|キ,（ゴ）
+客|guest|キャク,カク
+究|research|キュウ,きわ-める
+急|hurry|キュウ,いそ-ぐ
+級|rank|キュウ
+宮|Shinto shrine|キュウ,グウ,（ク）,みや
+球|sphere|キュウ,たま
+去|leave|キョ,コ,さ-る
+橋|bridge|キョウ,はし
+業|business|ギョウ,ゴウ,わざ
+曲|musical composition|キョク,ま-がる,ま-げる
+局|office|キョク
+銀|silver|ギン
+区|ward|ク
+苦|suffer|ク,くる-しい,くる-しむ,くる-しめる,にが-い,にが-る
+具|tool|グ
+君|you|クン,きみ
+係|person in charge|ケイ,かか-る,かかり
+軽|light|ケイ,かる-い,かろ-やか
+血|blood|ケツ,ち
+決|decide|ケツ,き-める,き-まる
+研|sharpen|ケン,と-ぐ
+県|prefecture|ケン
+庫|warehouse|コ,（ク）
+湖|lake|コ,みずうみ
+向|over there|コウ,む-く,む-ける,む-かう,む-こう
+幸|happiness|コウ,さいわ-い,さち,しあわ-せ
+港|harbor|コウ,みなと
+号|number|ゴウ
+根|root|コン,ね
+祭|festival|サイ,まつ-る,まつ-り
+皿|dish|さら
+仕|do|シ,（ジ）,つか-える
+死|death|シ,し-ぬ
+使|use|シ,つか-う
+始|begin|シ,はじ-める,はじ-まる
+指|finger|シ,ゆび,さ-す
+歯|tooth|シ,は
+詩|poem|シ
+次|next|ジ,シ,つ-ぐ,つぎ
+事|abstract thing|ジ,（ズ）,こと
+持|hold|ジ,も-つ
+式|style|シキ
+実|truth|ジツ,み,みの-る
+写|copy|シャ,うつ-す,うつ-る
+者|someone|シャ,もの
+主|master|シュ,（ス）,ぬし,おも
+守|protect|シュ,（ス）,まも-る,も-り
+取|take|シュ,と-る
+酒|alcoholic drink|シュ,さけ,（さか）
+受|accept|ジュ,う-ける,う-かる
+州|state|シュウ,す
+拾|pick up|シュウ,ジュウ,ひろ-う
+終|end|シュウ,お-わる,お-える
+習|learn|シュウ,なら-う
+集|collect|シュウ,あつ-まる,あつ-める,つど-う
+住|dwelling|ジュウ,す-む,す-まう
+重|heavy|ジュウ,チョウ,え,おも-い,かさ-ねる,かさ-なる
+宿|inn|シュク,やど,やど-る,やど-す
+所|place|ショ,ところ
+暑|hot|ショ,あつ-い
+助|help|ジョ,たす-ける,たす-かる,すけ
+昭|shining|ショウ
+消|extinguish|ショウ,き-える,け-す
+商|sell|ショウ,あきな-う
+章|chapter|ショウ
+勝|win|ショウ,か-つ,まさ-る
+乗|ride|ジョウ,の-る,の-せる
+植|plant|ショク,う-える,う-わる
+申|say|シン,もう-す
+身|body|シン,み
+神|god|シン,ジン,かみ,（かん）,（こう）
+真|true|シン,ま
+深|deep|シン,ふか-い,ふか-まる,ふか-める
+進|advance|シン,すす-む,すす-める
+世|world|セイ,セ,よ
+整|put in order|セイ,ととの-える,ととの-う
+昔|long ago|セキ,（シャク）,むかし
+全|whole|ゼン,まった-く,すべ-て
+相|mutual|ソウ,ショウ,あい
+送|send|ソウ,おく-る
+想|concept|ソウ,（ソ）
+息|breath|ソク,いき
+速|fast|ソク,はや-い,はや-める,はや-まる,すみ-やか
+族|tribe|ゾク
+他|other|タ,ほか
+打|hit|ダ,う-つ
+対|opposite|タイ,ツイ
+待|wait|タイ,ま-つ
+代|substitute|ダイ,タイ,か-わる,か-える,よ,しろ
+第|ordinal number prefix|ダイ
+題|topic|ダイ
+炭|charcoal|タン,すみ
+短|short|タン,みじか-い
+談|discuss|ダン
+着|wear|チャク,（ジャク）,き-る,き-せる,つ-く,つ-ける
+注|pour|チュウ,そそ-ぐ
+柱|pillar|チュウ,はしら
+丁|ward|チョウ,テイ
+帳|account book|チョウ
+調|investigate|チョウ,しら-べる,ととの-う,ととの-える
+追|follow|ツイ,お-う
+定|decide|テイ,ジョウ,さだ-める,さだ-まる,さだ-か
+庭|garden|テイ,にわ
+笛|flute|テキ,ふえ
+鉄|iron|テツ
+転|revolve|テン,ころ-がる,ころ-げる,ころ-がす,ころ-ぶ
+都|metropolis|ト,ツ,みやこ
+度|degrees|ド,（ト）,（タク）,たび
+投|throw|トウ,な-げる
+豆|beans|トウ,（ズ）,まめ
+島|island|トウ,しま
+湯|hot water|トウ,ゆ
+登|climb|トウ,ト,のぼ-る
+等|class|トウ,ひと-しい
+動|move|ドウ,うご-く,うご-かす
+童|juvenile|ドウ,わらべ
+農|farming|ノウ
+波|wave|ハ,なみ
+配|distribute|ハイ,くば-る
+倍|double|バイ
+箱|box|はこ
+畑|farm|はた,はたけ
+発|departure|ハツ,ホツ
+反|anti-|ハン,（ホン）,（タン）,そ-る,そ-らす
+坂|slope|ハン,さか
+板|board|ハン,バン,いた
+皮|skin|ヒ,かわ
+悲|sad|ヒ,かな-しい,かな-しむ
+美|beauty|ビ,うつく-しい
+鼻|nose|ビ,はな
+筆|writing brush|ヒツ,ふで
+氷|ice|ヒョウ,こおり,ひ
+表|express|ヒョウ,おもて,あらわ-す,あらわ-れる
+秒|second (part of time)|ビョウ
+病|sick|ビョウ,（ヘイ）,や-む,やまい
+品|article|ヒン,しな
+負|lose|フ,ま-ける,ま-かす,お-う
+部|part|ブ
+服|clothes|フク
+福|luck|フク
+物|thing|ブツ,モツ,もの
+平|flat|ヘイ,ビョウ,たい-ら,ひら
+返|return|ヘン,かえ-す,かえ-る
+勉|exertion|ベン
+放|release|ホウ,はな-す,はな-つ,はな-れる,ほう-る
+味|flavor|ミ,あじ,あじ-わう
+命|fate|メイ,ミョウ,いのち
+面|face|メン,おも,おもて,つら
+問|question|モン,と-う,と-い,（とん）
+役|service|ヤク,エキ
+薬|medicine|ヤク,くすり
+由|reason|ユ,ユウ,（ユイ）,よし
+油|oil|ユ,あぶら
+有|have|ユウ,ウ,あ-る
+遊|play|ユウ,（ユ）,あそ-ぶ
+予|in advance|ヨ
+羊|sheep|ヨウ,ひつじ
+洋|ocean|ヨウ
+葉|leaf|ヨウ,は
+陽|sunshine|ヨウ
+様|formal title|ヨウ,さま
+落|fall|ラク,お-ちる,お-とす
+流|stream|リュウ,（ル）,なが-れる,なが-す
+旅|trip|リョ,たび
+両|both|リョウ
+緑|green|リョク,（ロク）,みどり
+礼|thanks|レイ,ライ
+列|row|レツ
+練|practice|レン,ね-る
+路|road|ロ,じ
+和|peace|ワ,（オ）,やわ-らぐ,やわ-らげる,なご-む,なご-やか

@@ -1,0 +1,191 @@
+胃|stomach|イ
+異|uncommon|イ,こと
+遺|bequeath|イ,（ユイ）
+域|range|イキ
+宇|eaves|ウ
+映|reflect|エイ,うつ-る,うつ-す,は-える
+延|prolong|エン,の-びる,の-べる,の-ばす
+沿|run alongside|エン,そ-う
+恩|grace|オン
+我|ego,I,we|ガ,われ,わ
+灰|ashes|カイ,はい
+拡|broaden|カク
+革|leather|カク,かわ
+閣|tall|カク
+割|divide|カツ,わ-る,わり,わ-れる,さ-く
+株|stocks|かぶ
+干|dry|カン,ほ-す,ひ-る
+巻|scroll|カン,ま-く,まき
+看|watch over|カン
+簡|simplicity|カン
+危|dangerous|キ,あぶ-ない,あや-うい,あや-ぶむ
+机|desk|キ,つくえ
+揮|brandish|キ
+貴|precious|キ,たっと-い,とうと-い,たっと-ぶ,とうと-ぶ
+疑|doubt|ギ,うたが-う
+吸|suck|キュウ,す-う
+供|offer|キョウ,（ク）,そな-える,とも
+胸|bosom|キョウ,むね,（むな）
+郷|home town|キョウ,ゴウ
+勤|diligence|キン,（ゴン）,つと-める,つと-まる
+筋|muscle|キン,すじ
+系|lineage|ケイ
+敬|respect|ケイ,うやま-う
+警|guard against|ケイ
+劇|drama|ゲキ
+激|violent|ゲキ,はげ-しい
+穴|hole|ケツ,あな
+券|ticket|ケン
+絹|silk|ケン,きぬ
+権|rights|ケン,（ゴン）
+憲|constitution|ケン
+源|origin|ゲン,みなもと
+厳|strict|ゲン,（ゴン）,おごそ-か,きび-しい
+己|self|コ,キ,おのれ
+呼|call|コ,よ-ぶ
+誤|mistake|ゴ,あやま-る
+后|empress|コウ
+孝|filial piety|コウ
+皇|emperor|コウ,オウ
+紅|deep red|コウ,（ク）,べに,くれない
+降|descend|コウ,お-りる,お-ろす,ふ-る
+鋼|steel|コウ,はがね
+刻|engrave|コク,きざ-む
+穀|cereals|コク
+骨|bone|コツ,ほね
+困|become distressed|コン,こま-る
+砂|sand|サ,シャ,すな
+座|sit|ザ,すわ-る
+済|settle|サイ,す-む,す-ます
+裁|judge|サイ,た-つ,さば-く
+策|scheme|サク
+冊|counter for books|サツ,サク
+蚕|silkworm|サン,かいこ
+至|climax|シ,いた-る
+私|me|シ,わたくし,わたし
+姿|figure|シ,すがた
+視|look at|シ
+詞|poetry|シ
+誌|document|シ
+磁|magnet|ジ
+射|shoot|シャ,い-る
+捨|throw away|シャ,す-てる
+尺|shaku|シャク
+若|young|ジャク,（ニャク）,わか-い,も-しくは
+樹|trees|ジュ
+収|take in|シュウ,おさ-める,おさ-まる
+宗|religion|シュウ,ソウ
+就|concerning|シュウ,（ジュ）,つ-く,つ-ける
+衆|masses|シュウ,（シュ）
+従|obey|ジュウ,（ショウ）,（ジュ）,したが-う,したが-える
+縦|vertical|ジュウ,たて
+縮|shrink|シュク,ちぢ-む,ちぢ-まる,ちぢ-める,ちぢ-れる,ちぢ-らす
+熟|ripen|ジュク,う-れる
+純|genuine|ジュン
+処|dispose|ショ
+署|government office|ショ
+諸|various|ショ
+除|exclude|ジョ,（ジ）,のぞ-く
+承|acquiesce|ショウ,うけたまわ-る
+将|leader|ショウ
+傷|wound|ショウ,きず,いた-む,いた-める
+障|hurt|ショウ,さわ-る
+蒸|steam|ジョウ,む-す,む-れる,む-らす
+針|needle|シン,はり
+仁|humanity|ジン,（ニ）
+垂|droop|スイ,た-れる,た-らす
+推|infer|スイ,お-す
+寸|measurement|スン
+盛|prosper|セイ,（ジョウ）,も-る,さか-る,さか-ん
+聖|holy|セイ
+誠|sincerity|セイ,まこと
+舌|tongue|ゼツ,した
+宣|proclaim|セン
+専|specialty|セン,もっぱ-ら
+泉|spring|セン,いずみ
+洗|wash|セン,あら-う
+染|dye|セン,そ-める,そ-まる,し-みる,し-み
+銭|coin|セン,ぜに
+善|good|ゼン,よ-い
+奏|play music|ソウ,かな-でる
+窓|window|ソウ,まど
+創|create|ソウ,つく-る
+装|attire|ソウ,ショウ,よそお-う
+層|stratum|ソウ
+操|maneuver|ソウ,みさお,あやつ-る
+蔵|warehouse|ゾウ,くら
+臓|entrails|ゾウ
+存|suppose|ソン,ゾン
+尊|revered|ソン,たっと-い,とうと-い,たっと-ぶ,とうと-ぶ
+退|retreat|タイ,しりぞ-く,しりぞ-ける
+宅|home|タク
+担|shouldering|タン,かつ-ぐ,にな-う
+探|grope|タン,さぐ-る,さが-す
+誕|nativity|タン
+段|steps|ダン
+暖|warmth|ダン,あたた-か,あたた-かい,あたた-まる,あたた-める
+値|value|チ,ね,あたい
+宙|mid-air|チュウ
+忠|loyalty|チュウ
+著|renowned|チョ,あらわ-す,いちじる-しい
+庁|government office|チョウ
+頂|place on the head|チョウ,いただ-く,いただき
+腸|intestines|チョウ
+潮|tide|チョウ,しお
+賃|fare|チン
+痛|pain|ツウ,いた-い,いた-む,いた-める
+敵|enemy|テキ,かたき
+展|expand|テン
+討|chastise|トウ,う-つ
+党|group|トウ
+糖|sugar|トウ
+届|deliver|とど-ける,とど-く
+難|difficult|ナン,かた-い,むずか-しい
+乳|milk|ニュウ,ちち,ち
+認|recognize|ニン,みと-める
+納|settlement|ノウ,（ナッ）,（ナ）,（ナン）,（トウ）,おさ-める,おさ-まる
+脳|brain|ノウ
+派|sect|ハ
+拝|worship|ハイ,おが-む
+背|back|ハイ,せ,せい,そむ-く,そむ-ける
+肺|lungs|ハイ
+俳|haiku|ハイ
+班|squad|ハン
+晩|nightfall|バン
+否|negate|ヒ,いな
+批|criticism|ヒ
+秘|secret|ヒ,ひ-める
+俵|bag|ヒョウ,たわら
+腹|abdomen|フク,はら
+奮|stirred up|フン,ふる-う
+並|line-up|ヘイ,なみ,なら-べる,なら-ぶ,なら-びに
+陛|highness|ヘイ
+閉|closed|ヘイ,と-じる,と-ざす,し-める,し-まる
+片|one-sided|ヘン,かた
+補|supplement|ホ,おぎな-う
+暮|livelihood|ボ,く-れる,く-らす
+宝|treasure|ホウ,たから
+訪|visit|ホウ,おとず-れる,たず-ねる
+亡|deceased|ボウ,（モウ）,な-い
+忘|forget|ボウ,わす-れる
+棒|rod|ボウ
+枚|sheet of...|マイ
+幕|curtain|マク,バク
+密|secrecy|ミツ
+盟|alliance|メイ
+模|imitation|モ,ボ
+訳|translate|ヤク,わけ
+郵|mail|ユウ
+優|superior|ユウ,やさ-しい,すぐ-れる
+預|deposit|ヨ,あず-ける,あず-かる
+幼|infancy|ヨウ,おさな-い
+欲|longing|ヨク,ほっ-する,ほ-しい
+翌|the following|ヨク
+乱|riot|ラン,みだ-れる,みだ-す
+卵|egg|ラン,たまご
+覧|perusal|ラン
+裏|back|リ,うら
+律|law|リツ,（リチ）
+臨|look to|リン,のぞ-む
+朗|melodious|ロウ,ほが-らか
+論|theory|ロン
