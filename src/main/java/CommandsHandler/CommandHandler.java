@@ -51,7 +51,7 @@ public class CommandHandler extends ListenerAdapter {
             }
             case "search" -> {
                 String[] command = event.getCommandString().split("\\s+");
-                String key = command[command.length - 1].toLowerCase();
+                String key = command[command.length - 1];
                 HashMap<String, Word> dictionary = InfoHandler.readFiles(filenames);
                 HashMap<String, Word> results = new HashMap<>();
                 for (Word word: dictionary.values()) {

@@ -41,7 +41,8 @@ public class KanjiDictionary {
             numResults += 1;
         }
         eb.setFooter("Page " + (currentPage + 1) + "/" + maxPages + " | Showing Results " +
-                (currentPage * 10 + 1) + "-" + (currentPage * 10 + numResults));
+                (currentPage * 10 + 1) + "-" + (currentPage * 10 + numResults) + " out of " +
+                wordList.size());
         eb.setColor(Color.YELLOW);
         return eb;
     }

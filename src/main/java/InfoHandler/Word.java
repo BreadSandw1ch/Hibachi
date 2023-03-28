@@ -21,7 +21,10 @@ public class Word {
     }
 
     public boolean hasMeaning(String meaning) {
-        return meanings.contains(meaning);
+        for (String wordMeaning:meanings) {
+            if (meaning.equalsIgnoreCase(wordMeaning)) return true;
+        }
+        return false;
     }
 
     public String getWord() {

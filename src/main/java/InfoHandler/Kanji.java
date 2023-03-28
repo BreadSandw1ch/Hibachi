@@ -22,7 +22,7 @@ public class Kanji extends Word {
         return readings.contains(reading);
     }
 
-    public HashSet<String> readings() {
+    public HashSet<String> getReadings() {
         return readings;
     }
 

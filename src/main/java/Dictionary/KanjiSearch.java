@@ -3,6 +3,7 @@ package Dictionary;
 import InfoHandler.Word;
 import net.dv8tion.jda.api.EmbedBuilder;
 
+import java.awt.*;
 import java.util.HashMap;
 
 public class KanjiSearch extends KanjiDictionary{
@@ -19,7 +20,13 @@ public class KanjiSearch extends KanjiDictionary{
     @Override
     public EmbedBuilder createPage() {
         EmbedBuilder eb = super.createPage();
-        eb.setTitle("Search Results: " + search);
+        if (getWordList().size() == 0) {
+            eb.setTitle("Error: Cannot find " + search + "!");
+            eb.setColor(Color.RED);
+            eb.setFooter("Please try searching for a different word or let us know something is missing");
+        } else {
+            eb.setTitle("Search Results: " + search);
+        }
         return eb;
     }
 
