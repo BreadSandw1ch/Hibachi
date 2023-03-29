@@ -21,7 +21,7 @@ public class UserInfo {
         words = new HashMap<>();
         numQuestions = 10;
         isMultipleChoice = true;
-        questionType = new QuestionTypes[3];
+        questionType = new QuestionTypes[] {QuestionTypes.KANJI, QuestionTypes.MEANINGS, null};
     }
 
     public User user() {

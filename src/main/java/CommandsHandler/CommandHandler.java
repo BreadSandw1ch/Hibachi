@@ -70,7 +70,7 @@ public class CommandHandler extends ListenerAdapter {
             case "quiz" -> {
                 Quiz quiz = new Quiz(user);
                 EmbedBuilder eb = quiz.buildQuestion();
-                ArrayList<Word> options = quiz.getMcOptions();
+                ArrayList<Word> options = quiz.getMcWordOptions();
                 if (quiz.isMultipleChoice()) {
                     List<Button> buttons = createGameButtons(quiz, options);
                     event.reply(" ").setEmbeds(eb.build()).addActionRow(buttons).queue();
@@ -95,7 +95,7 @@ public class CommandHandler extends ListenerAdapter {
         assert id != null;
         if (runningGames.containsKey(userID)) {
             Quiz quiz = runningGames.get(userID);
-            List<Word> options = quiz.getMcOptions();
+            List<Word> options = quiz.getMcWordOptions();
             if (id.equals("x")) {
                 event.reply("Exiting game").queue();
                 runningGames.remove(userID);
@@ -107,7 +107,7 @@ public class CommandHandler extends ListenerAdapter {
                 message.editMessage(" ").setEmbeds(eb.build()).queue();
                 if (quiz.getCurrentQuestion() < numQuestions || numQuestions == 0) {
                     eb = quiz.buildQuestion();
-                    options = quiz.getMcOptions();
+                    options = quiz.getMcWordOptions();
                     if (quiz.isMultipleChoice()) {
                         List<Button> buttons = createGameButtons(quiz, options);
                         event.reply(" ").setEmbeds(eb.build()).addActionRow(buttons).queue();
@@ -118,7 +118,7 @@ public class CommandHandler extends ListenerAdapter {
                 } else {
 
                     event.reply("Congratulations! You got " + quiz.getNumCorrect() + "/" +
-                            quiz.getCurrentQuestion() + "correct").queue();
+                            quiz.getCurrentQuestion() + " correct").queue();
                 }
             }
         }
@@ -163,9 +163,9 @@ public class CommandHandler extends ListenerAdapter {
 
     public List<Button> createGameButtons(Quiz quiz, List<Word> options) {
         List<Button> buttons = new ArrayList<>();
+        List<String> buttonLabels = quiz.getMcButtonLabels();
         for (int i = 0; i < options.size() && i < 4; i++) {
-            String answer = quiz.getAnswerDisplay(1, options.get(i));
-            buttons.add(Button.primary(String.valueOf(i+1), answer));
+            buttons.add(Button.primary(String.valueOf(i+1), buttonLabels.get(i)));
         }
         buttons.add(Button.danger("x", "Exit"));
         return buttons;

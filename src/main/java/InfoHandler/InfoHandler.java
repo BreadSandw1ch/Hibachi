@@ -78,10 +78,12 @@ public class InfoHandler {
         try(BufferedReader reader = new BufferedReader(new FileReader(filename))){
             String line = reader.readLine();
             while(line != null) {
-                String[] fields = line.split("\\|");
-                String name = fields[0];
-                String file = fields[1];
-                files.put(name,file);
+                if (!line.startsWith("//")) {
+                    String[] fields = line.split("\\|");
+                    String name = fields[0];
+                    String file = fields[1];
+                    files.put(name, file);
+                }
                 line = reader.readLine();
             }
         } catch (IOException e) {

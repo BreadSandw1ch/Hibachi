@@ -4,17 +4,16 @@ import InfoHandler.*;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
+import java.util.List;
 
 public class Quiz {
     private final UserInfo user;
     private Word correct;
     private HashMap<String, Word> wordList;
     private static final int TERMINATING_CHECK = 1000;
-    private final ArrayList<Word> mcOptions = new ArrayList<>();
+    private final ArrayList<Word> mcWordOptions = new ArrayList<>();
+    private final ArrayList<String> mcButtonLabels = new ArrayList<>();
     private final int numQuestions;
     private int currentQuestion = 0;
     private int numCorrect = 0;
@@ -55,13 +54,20 @@ public class Quiz {
     }
 
     public String getAnswerDisplay(int value, Word word) {
+        Random random = new Random();
         String display = null;
         switch (questionTypes[value]) {
-            case MEANINGS -> display = word.getMeanings().toString();
+            case MEANINGS -> {
+                List<String> meanings = new ArrayList<>(word.getMeanings());
+                int randInt = random.nextInt(meanings.size());
+                display = meanings.get(randInt);
+            }
             case KANJI -> display = word.getWord();
             case READINGS -> {
                 if (word instanceof Kanji) {
-                    display = ((Kanji) word).getReadings().toString();
+                    List<String> readings = new ArrayList<>(((Kanji) word).getReadings());
+                    int randInt = random.nextInt(readings.size());
+                    display = readings.get(randInt);
                 } else {
                     display = word.getWord();
                 }
@@ -74,17 +80,18 @@ public class Quiz {
         return numCorrect;
     }
 
-    public ArrayList<Word> getMcOptions() {
-        return mcOptions;
+    public ArrayList<Word> getMcWordOptions() {
+        return mcWordOptions;
     }
 
     public void clearOptions() {
-        mcOptions.clear();
+        mcWordOptions.clear();
+        mcButtonLabels.clear();
     }
 
     public EmbedBuilder buildQuestion() {
         embedBuilder = new EmbedBuilder();
-        wordList = InfoHandler.readFiles(user.getFiles());
+        wordList = user.getWords();
         correct = getAnswer();
         Random random = new Random();
         int correctChoice = random.nextInt(1,5);
@@ -94,19 +101,21 @@ public class Quiz {
         int i = 0;
         while(i < optionEmotes.length) {
             Word word = getAnswer();
-            String answer = null;
-            if (word == null || mcOptions.size() >= wordList.size()) break;
-            if (mcOptions.contains(word) || Objects.equals(word, correct)) continue;
+            String answer;
+            if (word == null || mcWordOptions.size() >= wordList.size()) break;
+            if (mcWordOptions.contains(word) || Objects.equals(word, correct)) continue;
             if (i+1 == correctChoice) {
                 answer = getAnswerDisplay(1, correct);
                 embedBuilder.addField(optionEmotes[i] + " - **" + answer + "**", " ", false);
-                mcOptions.add(correct);
+                mcWordOptions.add(correct);
+                mcButtonLabels.add(answer);
                 i++;
                 if (i >= optionEmotes.length) break;
             }
             answer = getAnswerDisplay(1, word);
             embedBuilder.addField(optionEmotes[i] + " - **" + answer + "**", " ", false);
-            mcOptions.add(word);
+            mcWordOptions.add(word);
+            mcButtonLabels.add(answer);
             i++;
         }
         embedBuilder.setColor(Color.YELLOW);
@@ -120,7 +129,9 @@ public class Quiz {
             numCorrect += 1;
         } else {
             embedBuilder.setColor(Color.RED);
-            embedBuilder.setFooter("Incorrect. Answer: " + correct.getWord());
+            int answer = mcWordOptions.indexOf(correct);
+            String buttonLabel = mcButtonLabels.get(answer);
+            embedBuilder.setFooter("Incorrect. Answer: " + buttonLabel);
         }
         currentQuestion += 1;
         clearOptions();
@@ -137,5 +148,9 @@ public class Quiz {
 
     public boolean isMultipleChoice() {
         return isMultipleChoice;
+    }
+
+    public ArrayList<String> getMcButtonLabels() {
+        return mcButtonLabels;
     }
 }
