@@ -71,8 +71,13 @@ public class CommandHandler extends ListenerAdapter {
                 Quiz quiz = new Quiz(user);
                 EmbedBuilder eb = quiz.buildQuestion();
                 ArrayList<Word> options = quiz.getMcOptions();
-                List<Button> buttons = createGameButtons(options);
-                event.reply(" ").setEmbeds(eb.build()).addActionRow(buttons).queue();
+                if (quiz.isMultipleChoice()) {
+                    List<Button> buttons = createGameButtons(quiz, options);
+                    event.reply(" ").setEmbeds(eb.build()).addActionRow(buttons).queue();
+                } else {
+                    event.reply(" ").setEmbeds(eb.build()).
+                            addActionRow(Button.danger("x", "Exit")).queue();
+                }
                 runningGames.put(author.getIdLong(), quiz);
             }
             case "settings" ->
@@ -96,17 +101,24 @@ public class CommandHandler extends ListenerAdapter {
                 runningGames.remove(userID);
             } else {
                 int choiceNum = Integer.parseInt(id);
+                int numQuestions = quiz.getNumQuestions();
                 Word choice = options.get(choiceNum - 1);
                 EmbedBuilder eb = quiz.verifyCorrect(choice);
                 message.editMessage(" ").setEmbeds(eb.build()).queue();
-                if (quiz.getCurrentQuestion() < 10) {
+                if (quiz.getCurrentQuestion() < numQuestions || numQuestions == 0) {
                     eb = quiz.buildQuestion();
                     options = quiz.getMcOptions();
-                    List<Button> buttons = createGameButtons(options);
-                    event.reply(" ").setEmbeds(eb.build()).addActionRow(buttons).queue();
+                    if (quiz.isMultipleChoice()) {
+                        List<Button> buttons = createGameButtons(quiz, options);
+                        event.reply(" ").setEmbeds(eb.build()).addActionRow(buttons).queue();
+                    } else {
+                        event.reply(" ").setEmbeds(eb.build()).
+                                addActionRow(Button.danger("x", "Exit")).queue();
+                    }
                 } else {
 
-                    event.reply("Congratulations! You got " + quiz.getNumCorrect() + "/10 correct").queue();
+                    event.reply("Congratulations! You got " + quiz.getNumCorrect() + "/" +
+                            quiz.getCurrentQuestion() + "correct").queue();
                 }
             }
         }
@@ -119,7 +131,7 @@ public class CommandHandler extends ListenerAdapter {
                 KanjiDictionary dictionary = runningDictionaries.get(userID);
                 EmbedBuilder eb = dictionary.turnPage(num);
                 List<Button> buttons = createDictionaryButtons();
-                event.reply(" ").setEmbeds(eb.build()).addActionRow(createDictionaryButtons()).queue();
+                event.reply(" ").setEmbeds(eb.build()).addActionRow(buttons).queue();
                 message.delete().queue();
             }
         }
@@ -149,10 +161,11 @@ public class CommandHandler extends ListenerAdapter {
         event.getGuild().updateCommands().addCommands(commandData).queue();
     }
 
-    public List<Button> createGameButtons(List<Word> options) {
-        List<Button> buttons = new ArrayList<>(){};
+    public List<Button> createGameButtons(Quiz quiz, List<Word> options) {
+        List<Button> buttons = new ArrayList<>();
         for (int i = 0; i < options.size() && i < 4; i++) {
-            buttons.add(Button.primary(String.valueOf(i+1), options.get(i).getWord()));
+            String answer = quiz.getAnswerDisplay(1, options.get(i));
+            buttons.add(Button.primary(String.valueOf(i+1), answer));
         }
         buttons.add(Button.danger("x", "Exit"));
         return buttons;

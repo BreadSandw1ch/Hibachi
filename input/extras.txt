@@ -1,3 +1,4 @@
 パソ|bread
 バカ|baka
 ムダ|useless
+嘘|lie|うそ

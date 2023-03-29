@@ -1,8 +1,6 @@
 package Quiz;
 
-import InfoHandler.InfoHandler;
-import InfoHandler.UserInfo;
-import InfoHandler.Word;
+import InfoHandler.*;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.awt.*;
@@ -17,15 +15,19 @@ public class Quiz {
     private HashMap<String, Word> wordList;
     private static final int TERMINATING_CHECK = 1000;
     private final ArrayList<Word> mcOptions = new ArrayList<>();
-    private static final int NUM_QUESTIONS = 10;
+    private final int numQuestions;
     private int currentQuestion = 0;
     private int numCorrect = 0;
     private EmbedBuilder embedBuilder;
+    private final QuestionTypes[] questionTypes;
+    private final boolean isMultipleChoice;
 
     public Quiz(UserInfo user) {
         this.user = user;
+        numQuestions = user.getNumQuestions();
+        questionTypes = user.getQuestionType();
+        isMultipleChoice = user.isMultipleChoice();
     }
-
 
     public UserInfo getUserInfo() {
         return user;
@@ -52,6 +54,22 @@ public class Quiz {
         return null;
     }
 
+    public String getAnswerDisplay(int value, Word word) {
+        String display = null;
+        switch (questionTypes[value]) {
+            case MEANINGS -> display = word.getMeanings().toString();
+            case KANJI -> display = word.getWord();
+            case READINGS -> {
+                if (word instanceof Kanji) {
+                    display = ((Kanji) word).getReadings().toString();
+                } else {
+                    display = word.getWord();
+                }
+            }
+        }
+        return display;
+    }
+
     public int getNumCorrect() {
         return numCorrect;
     }
@@ -70,20 +88,24 @@ public class Quiz {
         correct = getAnswer();
         Random random = new Random();
         int correctChoice = random.nextInt(1,5);
-        embedBuilder.setTitle("What means " + correct.getMeanings() + "?");
+        String question = getAnswerDisplay(0, correct);
+        embedBuilder.setTitle("What means " + question + "?");
         String[] optionEmotes = new String[]{":one:", ":two:", ":three:", ":four:"};
         int i = 0;
         while(i < optionEmotes.length) {
             Word word = getAnswer();
+            String answer = null;
             if (word == null || mcOptions.size() >= wordList.size()) break;
             if (mcOptions.contains(word) || Objects.equals(word, correct)) continue;
             if (i+1 == correctChoice) {
-                embedBuilder.addField(optionEmotes[i] + " - **" + correct.getWord() + "**", " ", false);
+                answer = getAnswerDisplay(1, correct);
+                embedBuilder.addField(optionEmotes[i] + " - **" + answer + "**", " ", false);
                 mcOptions.add(correct);
                 i++;
                 if (i >= optionEmotes.length) break;
             }
-            embedBuilder.addField(optionEmotes[i] + " - **" + word.getWord() + "**", " ", false);
+            answer = getAnswerDisplay(1, word);
+            embedBuilder.addField(optionEmotes[i] + " - **" + answer + "**", " ", false);
             mcOptions.add(word);
             i++;
         }
@@ -105,5 +127,15 @@ public class Quiz {
         return embedBuilder;
     }
 
+    public int getNumQuestions() {
+        return numQuestions;
+    }
 
+    public QuestionTypes[] getQuestionTypes() {
+        return questionTypes;
+    }
+
+    public boolean isMultipleChoice() {
+        return isMultipleChoice;
+    }
 }

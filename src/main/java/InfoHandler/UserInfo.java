@@ -10,16 +10,46 @@ public class UserInfo {
     private final User user;
     private final Collection<String> files;
     private HashMap<String, Word> words;
+    private int numQuestions;
+    private boolean isMultipleChoice;
+    private final QuestionTypes[] questionType;
 
     public UserInfo(User user) {
         this.user = user;
         HashMap<String, String> fileMap = InfoHandler.getFiles();
         files = fileMap.values();
         words = new HashMap<>();
+        numQuestions = 10;
+        isMultipleChoice = true;
+        questionType = new QuestionTypes[3];
     }
 
     public User user() {
         return user;
+    }
+
+    public QuestionTypes[] getQuestionType() {
+        return questionType;
+    }
+
+    public void setQuestionType(QuestionTypes question, int value) {
+        questionType[value] = question;
+    }
+
+    public int getNumQuestions() {
+        return numQuestions;
+    }
+
+    public void setNumQuestion(int num) {
+        numQuestions = num;
+    }
+
+    public boolean isMultipleChoice() {
+        return isMultipleChoice;
+    }
+
+    public void setMultipleChoice(boolean value) {
+        isMultipleChoice = value;
     }
 
     public Collection<String> getFiles() {
