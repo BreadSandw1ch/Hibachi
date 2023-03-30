@@ -1,11 +1,11 @@
 package InfoHandler;
 
+import com.iwebpp.crypto.TweetNaclFast;
+import net.dv8tion.jda.api.EmbedBuilder;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class InfoHandler {
 
@@ -53,10 +53,10 @@ public class InfoHandler {
 
     public static void addWord(String[] fields, HashMap<String, Word> dictionary) {
         String identifier = fields[0];
-        HashSet<String> meanings = new HashSet<>(List.of(fields[1].split(",")));
+        ArrayList<String> meanings = new ArrayList<>(List.of(fields[1].split(",")));
         Word word;
         if (fields.length > 2) {
-            HashSet<String> readings = new HashSet<>(List.of(fields[2].split(",")));
+            ArrayList<String> readings = new ArrayList<>(List.of(fields[2].split(",")));
             word = new Kanji(identifier, meanings, readings);
             dictionary.put(identifier, word);
         } else {
@@ -93,6 +93,22 @@ public class InfoHandler {
 
     public static HashMap<String, String> getFiles() {
         return files;
+    }
+
+    public static EmbedBuilder botInfo() {
+        EmbedBuilder eb = new EmbedBuilder();
+        eb.setTitle("Thanks for inviting me to this server!");
+        eb.addField("Who? What? Where? When? Why? How?",
+                """
+                        Who: Hibachi
+                        What: A bot specialized around Japanese kanji and kana
+                        Where: Here
+                        When: Since [REDACTED]
+                        Why: My creator felt like it
+                        How: I make quizzes and dictionaries
+                        """, false);
+        eb.setColor(0xeeac41);
+        return eb;
     }
 
 }

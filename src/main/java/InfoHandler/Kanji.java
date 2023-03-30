@@ -1,11 +1,12 @@
 package InfoHandler;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 
 public class Kanji extends Word {
-    private final HashSet<String> readings;
-    public Kanji(String kanji, HashSet<String> meanings, HashSet<String> readings) {
+    private final ArrayList<String> readings;
+    public Kanji(String kanji, ArrayList<String> meanings, ArrayList<String> readings) {
         super(kanji, meanings);
         this.readings = readings;
     }
@@ -22,7 +23,7 @@ public class Kanji extends Word {
         return readings.contains(reading);
     }
 
-    public HashSet<String> getReadings() {
+    public ArrayList<String> getReadings() {
         return readings;
     }
 

@@ -1,13 +1,14 @@
 package InfoHandler;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 
 public class Word {
     private final String word;
-    private final HashSet<String> meanings;
+    private final ArrayList<String> meanings;
 
-    public Word(String kanji, HashSet<String> meanings) {
+    public Word(String kanji, ArrayList<String> meanings) {
         this.word = kanji;
         this.meanings = meanings;
     }
@@ -31,7 +32,7 @@ public class Word {
         return word;
     }
 
-    public HashSet<String> getMeanings() {
+    public ArrayList<String> getMeanings() {
         return meanings;
     }
 
