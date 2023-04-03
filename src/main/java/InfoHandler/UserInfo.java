@@ -61,6 +61,18 @@ public class UserInfo {
         return words;
     }
 
+    public boolean hasFile(String file) {
+        return files.contains(file);
+    }
+
+    public void addFile(String file) {
+        files.add(file);
+    }
+
+    public void removeFile(String file) {
+        files.remove(file);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;

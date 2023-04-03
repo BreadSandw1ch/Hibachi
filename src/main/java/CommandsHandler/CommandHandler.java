@@ -1,5 +1,6 @@
 package CommandsHandler;
 
+import Config.Config;
 import InfoHandler.*;
 import Quiz.Quiz;
 import Dictionary.*;
@@ -15,7 +16,11 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import net.dv8tion.jda.api.interactions.components.ActionComponent;
+import net.dv8tion.jda.api.interactions.components.ActionRow;
+import net.dv8tion.jda.api.interactions.components.ItemComponent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import net.dv8tion.jda.api.interactions.components.selections.StringSelectMenu;
 
 import java.util.*;
 
@@ -23,6 +28,7 @@ public class CommandHandler extends ListenerAdapter {
     private final HashMap<Long, Quiz> runningGames = new HashMap<>();
     private final HashMap<Long, KanjiDictionary> runningDictionaries = new HashMap<>();
     private final HashMap<Long, UserInfo> users = new HashMap<>();
+    private final HashMap<Long, Config> runningConfigs = new HashMap<>();
 
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         String commandName = event.getName();
@@ -71,6 +77,7 @@ public class CommandHandler extends ListenerAdapter {
                 KanjiSearch search = new KanjiSearch(results, key);
                 EmbedBuilder eb = search.createPage();
                 event.reply(" ").setEmbeds(eb.build()).addActionRow(createDictionaryButtons()).queue();
+                runningDictionaries.put(author.getIdLong(), search);
             }
             case "quiz" -> {
                 Quiz quiz = new Quiz(user);
@@ -85,15 +92,23 @@ public class CommandHandler extends ListenerAdapter {
                 }
                 runningGames.put(author.getIdLong(), quiz);
             }
-            case "config" ->
-                event.reply("settings").queue();
+            case "config" -> {
+                Config config = new Config(user);
+                EmbedBuilder eb = config.createPage();
+                ActionComponent dropdown = config.createConfigDropdown();
+                ActionComponent exitButton = Button.danger("x", "Exit");
+                Collection<ActionComponent> interactions = new ArrayList<>();
+                interactions.add(dropdown);
+                interactions.add(exitButton);
+                event.reply("").setEmbeds(eb.build()).addActionRow(interactions).queue();
+                runningConfigs.put(author.getIdLong(), config);
+            }
             case "help" ->
                 event.reply("test").queue();
         }
     }
 
     public void onButtonInteraction(ButtonInteractionEvent event) {
-        MessageChannel channel = event.getChannel();
         long userID = event.getUser().getIdLong();
         String id = event.getButton().getId();
         Message message = event.getMessage();
@@ -130,7 +145,7 @@ public class CommandHandler extends ListenerAdapter {
         }
         if (runningDictionaries.containsKey(userID)) {
             if (id.equals("x")) {
-                channel.sendMessage("Exiting dictionary").queue();
+                event.reply("Closing...").queue();
                 runningDictionaries.remove(userID);
             } else {
                 int num = Integer.parseInt(id);
@@ -139,6 +154,24 @@ public class CommandHandler extends ListenerAdapter {
                 List<Button> buttons = createDictionaryButtons();
                 event.reply(" ").setEmbeds(eb.build()).addActionRow(buttons).queue();
                 message.delete().queue();
+            }
+        }
+        if (runningConfigs.containsKey(userID)) {
+            if (id.equals("x")) {
+                event.reply("Closing...").queue();
+                runningDictionaries.remove(userID);
+            } else {
+                event.reply(event.getComponentId()).queue();
+                /*
+                int num = Integer.parseInt(id);
+                Config config = runningConfigs.get(userID);
+                config.setPageNum(num);
+                EmbedBuilder eb = config.createPage();
+                List<Button> buttons = createDictionaryButtons();
+                event.reply(" ").setEmbeds(eb.build()).addActionRow(buttons).queue();
+                message.delete().queue();
+
+                 */
             }
         }
     }
@@ -172,7 +205,7 @@ public class CommandHandler extends ListenerAdapter {
         List<Button> buttons = new ArrayList<>();
         buttons.add(Button.secondary("-1", "<"));
         buttons.add(Button.secondary("1", ">"));
-        // buttons.add(Button.danger("x", "Exit"));
+        buttons.add(Button.danger("x", "Exit"));
         return buttons;
     }
 

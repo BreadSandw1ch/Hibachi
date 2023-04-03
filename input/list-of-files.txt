@@ -1,15 +1,16 @@
-//Regular Hiragana|hiragana-base
-//Hiragana with Diacritics|hiragana-extras
-//Regular Katakana|katakana-base
-//Katakana with Diacritics|katakana-extras
+Regular Hiragana|hiragana-base
+Hiragana with Diacritics|hiragana-extras
+Regular Katakana|katakana-base
+Katakana with Diacritics|katakana-extras
 Grade 1 Only Kanji|kanji-grade-1-base
-// Grade 1 Kanji Compound Words|kanji-grade-1-compound
+Grade 1 Kanji Compound Words|kanji-grade-1-compound
 // Grade 1 Kanji + Hiragana Suffixes|kanji-grade-1-extras
 // Number Kanji|kanji-numbers
-// Grade 2 Kanji|kanji-grade-2-base
-// Grade 3 Kanji|kanji-grade-3-base
-// Grade 4 Kanji|kanji-grade-4-base
-// Grade 5 Kanji|kanji-grade-5-base
-// Grade 6 Kanji|kanji-grade-6-base
-// Secondary School Kanji|kanji-grade-s-base
-// All Jouyou Kanji|kanji-all
+Grade 2 Kanji|kanji-grade-2-base
+Grade 3 Kanji|kanji-grade-3-base
+Grade 4 Kanji|kanji-grade-4-base
+Grade 5 Kanji|kanji-grade-5-base
+Grade 6 Kanji|kanji-grade-6-base
+Secondary School Kanji|kanji-grade-s-base
+All Jouyou Kanji|kanji-all
+Extras|extras

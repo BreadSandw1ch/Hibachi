@@ -96,7 +96,10 @@ public class Quiz {
         Random random = new Random();
         int correctChoice = random.nextInt(1,5);
         String question = getAnswerDisplay(0, correct);
-        embedBuilder.setTitle("What means " + question + "?");
+        if (questionTypes[0] == QuestionTypes.MEANINGS) embedBuilder.setTitle("What means \"" + question + "\"?");
+        else {
+            embedBuilder.setTitle("What does " + question + " mean?");
+        }
         String[] optionEmotes = new String[]{":one:", ":two:", ":three:", ":four:"};
         int i = 0;
         while(i < optionEmotes.length) {

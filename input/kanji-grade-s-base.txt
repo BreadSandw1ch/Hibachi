@@ -956,7 +956,7 @@
 頰 [7]|cheek|ほお
 朴|crude|ボク
 睦|harmonious|ボク
-僕|me|ボク
+僕|I,me|ボク
 墨|black ink|ボク,すみ
 撲|slap|ボク
 没|drown|ボツ

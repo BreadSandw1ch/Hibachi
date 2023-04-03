@@ -915,7 +915,7 @@ KANJI GRADE 6
 冊|counter for books|サツ,サク
 蚕|silkworm|サン,かいこ
 至|climax|シ,いた-る
-私|me|シ,わたくし,わたし
+私|I,me|シ,わたくし,わたし
 姿|figure|シ,すがた
 視|look at|シ
 詞|poetry|シ
@@ -2003,7 +2003,7 @@ KANJI GRADE S
 頰 [7]|cheek|ほお
 朴|crude|ボク
 睦|harmonious|ボク
-僕|me|ボク
+僕|I,me|ボク
 墨|black ink|ボク,すみ
 撲|slap|ボク
 没|drown|ボツ
