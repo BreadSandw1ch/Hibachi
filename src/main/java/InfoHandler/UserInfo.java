@@ -14,6 +14,7 @@ public class UserInfo {
     private int numQuestions;
     private boolean isMultipleChoice;
     private final QuestionTypes[] questionType;
+    BotInteraction interaction;
 
     public UserInfo(User user) {
         this.user = user;
@@ -28,6 +29,18 @@ public class UserInfo {
 
     public User user() {
         return user;
+    }
+
+    public void setInteraction(BotInteraction botInteraction) {
+        interaction = botInteraction;
+    }
+
+    public BotInteraction getInteraction() {
+        return interaction;
+    }
+
+    public boolean isInInteraction() {
+        return interaction != null;
     }
 
     public QuestionTypes[] getQuestionType() {

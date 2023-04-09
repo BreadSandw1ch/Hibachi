@@ -2,12 +2,14 @@ package Quiz;
 
 import InfoHandler.*;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.interactions.components.ActionComponent;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-public class Quiz {
+public class Quiz implements BotInteraction{
     private final UserInfo user;
     private Word correct;
     private HashMap<String, Word> wordList;
@@ -26,14 +28,6 @@ public class Quiz {
         numQuestions = user.getNumQuestions();
         questionTypes = user.getQuestionType();
         isMultipleChoice = user.isMultipleChoice();
-    }
-
-    public UserInfo getUserInfo() {
-        return user;
-    }
-
-    public Word getCorrect() {
-        return correct;
     }
 
     public int getCurrentQuestion() {
@@ -153,7 +147,16 @@ public class Quiz {
         return isMultipleChoice;
     }
 
-    public ArrayList<String> getMcButtonLabels() {
-        return mcButtonLabels;
+    /**
+     * Creates buttons for game
+     * @return list of buttons from the quiz
+     */
+    public List<ActionComponent> createComponents() {
+        List<ActionComponent> buttons = new ArrayList<>();
+        for (int i = 0; i < mcWordOptions.size() && i < 4; i++) {
+            buttons.add(Button.primary(String.valueOf(i+1), mcButtonLabels.get(i)));
+        }
+        buttons.add(Button.danger("x", "Exit"));
+        return buttons;
     }
 }

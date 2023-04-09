@@ -2,6 +2,7 @@ package Config;
 
 import InfoHandler.InfoHandler;
 import InfoHandler.UserInfo;
+import InfoHandler.BotInteraction;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.interactions.components.ActionComponent;
 import net.dv8tion.jda.api.interactions.components.selections.StringSelectMenu;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Config {
+public class Config implements BotInteraction {
     private final UserInfo userInfo;
     private int pageNum;
     private int subPage;
@@ -53,7 +54,8 @@ public class Config {
         return eb;
     }
 
-    public ActionComponent createConfigDropdown() {
+    @Override
+    public List<ActionComponent> createComponents() {
         String title;
         switch (pageNum) {
             case 3 -> title = "Other Config Settings";
@@ -72,7 +74,9 @@ public class Config {
         for (Option option:options) {
             selectMenu.addOption(option.title(), option.description());
         }
-        return selectMenu.build();
+        List<ActionComponent> interactions = new ArrayList<>();
+        interactions.add(selectMenu.build());
+        return interactions;
     }
 
     public void interact(int pageNum, String id) {

@@ -23,11 +23,22 @@ import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import java.util.*;
 
 public class CommandHandler extends ListenerAdapter {
-    private final HashMap<Long, Quiz> runningGames = new HashMap<>();
-    private final HashMap<Long, KanjiDictionary> runningDictionaries = new HashMap<>();
+    /**
+     * users - HashMap mapping user Discord IDs to UserInfo objects
+     */
     private final HashMap<Long, UserInfo> users = new HashMap<>();
-    private final HashMap<Long, Config> runningConfigs = new HashMap<>();
 
+    /**
+     * Slash Command Event Handler
+     * @param event slash command event
+     * currently running commands:
+     *              /info - gets info about this bot
+     *              /dictionary - creates a dictionary
+     *              /search - searches for a given keyword
+     *              /quiz - starts a quiz
+     *              /config - starts a config thing (personal settings)
+     *              /help - pulls up a list of commands
+     */
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         String commandName = event.getName();
         User author = event.getUser();
@@ -41,6 +52,7 @@ public class CommandHandler extends ListenerAdapter {
             users.put(author.getIdLong(), user);
         }
 
+
             switch (commandName) {
             case "info"-> {
                 EmbedBuilder eb = InfoHandler.botInfo();
@@ -51,9 +63,9 @@ public class CommandHandler extends ListenerAdapter {
                 HashMap<String, Word> words = InfoHandler.readFiles(filenames);
                 KanjiDictionary dictionary = new KanjiDictionary(words);
                 EmbedBuilder eb = dictionary.createPage();
-                List<Button> buttons = createDictionaryButtons();
+                List<ActionComponent> buttons = dictionary.createComponents();
                 event.reply(" ").setEmbeds(eb.build()).addActionRow(buttons).queue();
-                runningDictionaries.put(author.getIdLong(), dictionary);
+                user.setInteraction(dictionary);
             }
             case "search" -> {
                 String[] command = event.getCommandString().split("\\s+");
@@ -74,111 +86,128 @@ public class CommandHandler extends ListenerAdapter {
                 }
                 KanjiSearch search = new KanjiSearch(results, key);
                 EmbedBuilder eb = search.createPage();
-                event.reply(" ").setEmbeds(eb.build()).addActionRow(createDictionaryButtons()).queue();
-                runningDictionaries.put(author.getIdLong(), search);
+                List<ActionComponent> searchButtons = search.createComponents();
+                event.reply(" ").setEmbeds(eb.build()).addActionRow(searchButtons).queue();
+                user.setInteraction(search);
             }
             case "quiz" -> {
                 Quiz quiz = new Quiz(user);
                 EmbedBuilder eb = quiz.buildQuestion();
-                ArrayList<Word> options = quiz.getMcWordOptions();
                 if (quiz.isMultipleChoice()) {
-                    List<Button> buttons = createGameButtons(quiz, options);
+                    List<ActionComponent> buttons = quiz.createComponents();
                     event.reply(" ").setEmbeds(eb.build()).addActionRow(buttons).queue();
                 } else {
                     event.reply(" ").setEmbeds(eb.build()).
                             addActionRow(Button.danger("x", "Exit")).queue();
                 }
-                runningGames.put(author.getIdLong(), quiz);
+                user.setInteraction(quiz);
             }
             case "config" -> {
                 Config config = new Config(user);
                 EmbedBuilder eb = config.createPage();
-                ActionComponent dropdown = config.createConfigDropdown();
+                List<ActionComponent> dropdown = config.createComponents();
                 event.reply("").setEmbeds(eb.build()).addActionRow(dropdown).
                 setEphemeral(true).queue();
-                runningConfigs.put(author.getIdLong(), config);
+                user.setInteraction(config);
             }
             case "help" ->
                 event.reply("test").queue();
         }
     }
 
+    /**
+     * Button Event Handler
+     * @param event button interaction event
+     */
     public void onButtonInteraction(ButtonInteractionEvent event) {
         long userID = event.getUser().getIdLong();
         String id = event.getButton().getId();
         Message message = event.getMessage();
+        UserInfo userInfo = users.get(userID);
         assert id != null;
-        if (runningGames.containsKey(userID)) {
-            Quiz quiz = runningGames.get(userID);
-            List<Word> options = quiz.getMcWordOptions();
+        if (!userInfo.isInInteraction()) return;
+        BotInteraction interaction = userInfo.getInteraction();
+        if (interaction instanceof Quiz) {
+            List<Word> options = ((Quiz) interaction).getMcWordOptions();
             if (id.equals("x")) {
-                event.reply("Exiting game (answered " + quiz.getNumCorrect() + "/"
-                        + quiz.getCurrentQuestion() + " questions correctly)").queue();
-                runningGames.remove(userID);
+                event.reply("Exiting game (answered " + ((Quiz) interaction).getNumCorrect() + "/"
+                        + ((Quiz) interaction).getCurrentQuestion() + " questions correctly)").queue();
+                userInfo.setInteraction(null);
             } else {
                 int choiceNum = Integer.parseInt(id);
-                int numQuestions = quiz.getNumQuestions();
+                int numQuestions = ((Quiz) interaction).getNumQuestions();
                 Word choice = options.get(choiceNum - 1);
-                EmbedBuilder eb = quiz.verifyCorrect(choice);
+                EmbedBuilder eb = ((Quiz) interaction).verifyCorrect(choice);
                 message.editMessage(" ").setEmbeds(eb.build()).queue();
-                if (quiz.getCurrentQuestion() < numQuestions || numQuestions == 0) {
-                    eb = quiz.buildQuestion();
-                    options = quiz.getMcWordOptions();
-                    if (quiz.isMultipleChoice()) {
-                        List<Button> buttons = createGameButtons(quiz, options);
+                if (((Quiz) interaction).getCurrentQuestion() < numQuestions || numQuestions == 0) {
+                    eb = ((Quiz) interaction).buildQuestion();
+                    if (((Quiz) interaction).isMultipleChoice()) {
+                        List<ActionComponent> buttons = interaction.createComponents();
                         event.reply(" ").setEmbeds(eb.build()).addActionRow(buttons).queue();
                     } else {
                         event.reply(" ").setEmbeds(eb.build()).
                                 addActionRow(Button.danger("x", "Exit")).queue();
                     }
                 } else {
-                    event.reply("Congratulations! You got " + quiz.getNumCorrect() + "/" +
-                            quiz.getCurrentQuestion() + " correct").queue();
-                    runningGames.remove(userID);
+                    event.reply("Congratulations! You got " + ((Quiz) interaction).getNumCorrect() + "/" +
+                            ((Quiz) interaction).getCurrentQuestion() + " correct").queue();
+                    userInfo.setInteraction(null);
                 }
             }
         }
-        if (runningDictionaries.containsKey(userID)) {
+        if (interaction instanceof KanjiDictionary) {
             if (id.equals("x")) {
                 event.reply("Closing...").queue();
-                runningDictionaries.remove(userID);
+                userInfo.setInteraction(null);
             } else {
                 int num = Integer.parseInt(id);
-                KanjiDictionary dictionary = runningDictionaries.get(userID);
-                EmbedBuilder eb = dictionary.turnPage(num);
-                List<Button> buttons = createDictionaryButtons();
+                EmbedBuilder eb = ((KanjiDictionary) interaction).turnPage(num);
+                List<ActionComponent> buttons = interaction.createComponents();
                 event.reply(" ").setEmbeds(eb.build()).addActionRow(buttons).queue();
                 message.delete().queue();
             }
         }
     }
 
+    /**
+     * String Select Interaction Event Handler
+     * @param event string select interaction event
+     */
     public void onStringSelectInteraction(StringSelectInteractionEvent event) {
         long userID = event.getUser().getIdLong();
-        if (runningConfigs.containsKey(userID)) {
+        UserInfo userInfo = users.get(userID);
+        BotInteraction interaction = userInfo.getInteraction();
+        if (interaction instanceof Config) {
             // getLabel - gets selected option's label
             // getValue - gets selected option's value
             // getComponent.getId - gets the select menu's id
             String id = event.getInteraction().getSelectedOptions().get(0).getValue();
             if (id.equals("x")) {
-                event.editMessage("Done!").setEmbeds().setActionRow().queue();
-                runningConfigs.remove(userID);
+                event.editMessage("Done!").setEmbeds().queue();
+                userInfo.setInteraction(null);
             } else {
                 int pageNum = Integer.parseInt(event.getComponentId());
-                Config config = runningConfigs.get(userID);
-                config.interact(pageNum, id);
-                EmbedBuilder eb = config.createPage();
-                ActionComponent selectMenu = config.createConfigDropdown();
+                ((Config) interaction).interact(pageNum, id);
+                EmbedBuilder eb = ((Config) interaction).createPage();
+                List<ActionComponent> selectMenu = interaction.createComponents();
                 event.editMessage(" ").setEmbeds(eb.build()).setActionRow(selectMenu).queue();
             }
         }
     }
 
+    /**
+     * Activates when the bot loads up a server (upon startup)
+     * @param event guild ready event
+     */
     public void onGuildReady(GuildReadyEvent event) {
         List<CommandData> commandData = initializeCommands();
         event.getGuild().updateCommands().addCommands(commandData).queue();
     }
 
+    /**
+     * Activates when the bot joins a server (while the bot is active)
+     * @param event guild join event
+     */
     public void onGuildJoin(GuildJoinEvent event) {
         MessageChannel messageChannel = event.getGuild().getSystemChannel();
         EmbedBuilder eb = InfoHandler.botInfo();
@@ -189,24 +218,10 @@ public class CommandHandler extends ListenerAdapter {
         event.getGuild().updateCommands().addCommands(commandData).queue();
     }
 
-    public List<Button> createGameButtons(Quiz quiz, List<Word> options) {
-        List<Button> buttons = new ArrayList<>();
-        List<String> buttonLabels = quiz.getMcButtonLabels();
-        for (int i = 0; i < options.size() && i < 4; i++) {
-            buttons.add(Button.primary(String.valueOf(i+1), buttonLabels.get(i)));
-        }
-        buttons.add(Button.danger("x", "Exit"));
-        return buttons;
-    }
-
-    public List<Button> createDictionaryButtons() {
-        List<Button> buttons = new ArrayList<>();
-        buttons.add(Button.secondary("-1", "<"));
-        buttons.add(Button.secondary("1", ">"));
-        buttons.add(Button.danger("x", "Exit"));
-        return buttons;
-    }
-
+    /**
+     * Initializes commands
+     * @return list of commands to initialize
+     */
     public List<CommandData> initializeCommands() {
         List<CommandData> commandData = new ArrayList<>();
         commandData.add(Commands.slash("info", "displays info about this bot"));
