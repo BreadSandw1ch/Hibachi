@@ -13,10 +13,6 @@ public class KanjiSearch extends KanjiDictionary{
         this.search = search;
     }
 
-    public String getSearch() {
-        return search;
-    }
-
     @Override
     public EmbedBuilder createPage() {
         EmbedBuilder eb = super.createPage();

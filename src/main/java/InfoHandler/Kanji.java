@@ -15,10 +15,6 @@ public class Kanji extends Word {
         readings.addAll(reading);
     }
 
-    public void removeReadings(HashSet<String> reading) {
-        readings.removeAll(reading);
-    }
-
     public boolean hasReading(String reading) {
         return readings.contains(reading);
     }

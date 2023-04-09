@@ -6,7 +6,6 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class KanjiDictionary {
     private final ArrayList<Word> wordList;
@@ -21,14 +20,6 @@ public class KanjiDictionary {
 
     public ArrayList<Word> getWordList() {
         return wordList;
-    }
-
-    public int getCurrentPage() {
-        return currentPage + 1;
-    }
-
-    public double getMaxPages() {
-        return maxPages;
     }
 
     public EmbedBuilder createPage() {

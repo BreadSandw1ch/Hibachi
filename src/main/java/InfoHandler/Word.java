@@ -17,10 +17,6 @@ public class Word {
         meanings.addAll(meaning);
     }
 
-    public void removeMeanings(HashSet<String> meaning) {
-        meanings.removeAll(meaning);
-    }
-
     public boolean hasMeaning(String meaning) {
         for (String wordMeaning:meanings) {
             if (meaning.equalsIgnoreCase(wordMeaning)) return true;
