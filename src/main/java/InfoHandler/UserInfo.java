@@ -2,6 +2,7 @@ package InfoHandler;
 
 import net.dv8tion.jda.api.entities.User;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Objects;
@@ -17,7 +18,8 @@ public class UserInfo {
     public UserInfo(User user) {
         this.user = user;
         HashMap<String, String> fileMap = InfoHandler.getFiles();
-        files = fileMap.values();
+        files = new ArrayList<>();
+        files.addAll(fileMap.values());
         words = new HashMap<>();
         numQuestions = 10;
         isMultipleChoice = true;

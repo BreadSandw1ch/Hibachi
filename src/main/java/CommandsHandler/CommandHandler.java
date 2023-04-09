@@ -12,15 +12,13 @@ import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.component.StringSelectInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.components.ActionComponent;
-import net.dv8tion.jda.api.interactions.components.ActionRow;
-import net.dv8tion.jda.api.interactions.components.ItemComponent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
-import net.dv8tion.jda.api.interactions.components.selections.StringSelectMenu;
 
 import java.util.*;
 
@@ -96,11 +94,8 @@ public class CommandHandler extends ListenerAdapter {
                 Config config = new Config(user);
                 EmbedBuilder eb = config.createPage();
                 ActionComponent dropdown = config.createConfigDropdown();
-                ActionComponent exitButton = Button.danger("x", "Exit");
-                Collection<ActionComponent> interactions = new ArrayList<>();
-                interactions.add(dropdown);
-                interactions.add(exitButton);
-                event.reply("").setEmbeds(eb.build()).addActionRow(interactions).queue();
+                event.reply("").setEmbeds(eb.build()).addActionRow(dropdown).
+                setEphemeral(true).queue();
                 runningConfigs.put(author.getIdLong(), config);
             }
             case "help" ->
@@ -118,7 +113,7 @@ public class CommandHandler extends ListenerAdapter {
             List<Word> options = quiz.getMcWordOptions();
             if (id.equals("x")) {
                 event.reply("Exiting game (answered " + quiz.getNumCorrect() + "/"
-                        + quiz.getCurrentQuestion() + " questions correctly").queue();
+                        + quiz.getCurrentQuestion() + " questions correctly)").queue();
                 runningGames.remove(userID);
             } else {
                 int choiceNum = Integer.parseInt(id);
@@ -137,9 +132,9 @@ public class CommandHandler extends ListenerAdapter {
                                 addActionRow(Button.danger("x", "Exit")).queue();
                     }
                 } else {
-
                     event.reply("Congratulations! You got " + quiz.getNumCorrect() + "/" +
                             quiz.getCurrentQuestion() + " correct").queue();
+                    runningGames.remove(userID);
                 }
             }
         }
@@ -156,22 +151,25 @@ public class CommandHandler extends ListenerAdapter {
                 message.delete().queue();
             }
         }
-        if (runningConfigs.containsKey(userID)) {
-            if (id.equals("x")) {
-                event.reply("Closing...").queue();
-                runningDictionaries.remove(userID);
-            } else {
-                event.reply(event.getComponentId()).queue();
-                /*
-                int num = Integer.parseInt(id);
-                Config config = runningConfigs.get(userID);
-                config.setPageNum(num);
-                EmbedBuilder eb = config.createPage();
-                List<Button> buttons = createDictionaryButtons();
-                event.reply(" ").setEmbeds(eb.build()).addActionRow(buttons).queue();
-                message.delete().queue();
+    }
 
-                 */
+    public void onStringSelectInteraction(StringSelectInteractionEvent event) {
+        long userID = event.getUser().getIdLong();
+        if (runningConfigs.containsKey(userID)) {
+            // getLabel - gets selected option's label
+            // getValue - gets selected option's value
+            // getComponent.getId - gets the select menu's id
+            String id = event.getInteraction().getSelectedOptions().get(0).getValue();
+            if (id.equals("x")) {
+                event.editMessage("Done!").setEmbeds().setActionRow().queue();
+                runningConfigs.remove(userID);
+            } else {
+                int pageNum = Integer.parseInt(event.getComponentId());
+                Config config = runningConfigs.get(userID);
+                config.interact(pageNum, id);
+                EmbedBuilder eb = config.createPage();
+                ActionComponent selectMenu = config.createConfigDropdown();
+                event.editMessage(" ").setEmbeds(eb.build()).setActionRow(selectMenu).queue();
             }
         }
     }

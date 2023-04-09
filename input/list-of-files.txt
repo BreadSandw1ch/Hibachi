@@ -5,7 +5,7 @@ Katakana with Diacritics|katakana-extras
 Grade 1 Only Kanji|kanji-grade-1-base
 Grade 1 Kanji Compound Words|kanji-grade-1-compound
 // Grade 1 Kanji + Hiragana Suffixes|kanji-grade-1-extras
-// Number Kanji|kanji-numbers
+Number Kanji|kanji-numbers
 Grade 2 Kanji|kanji-grade-2-base
 Grade 3 Kanji|kanji-grade-3-base
 Grade 4 Kanji|kanji-grade-4-base
