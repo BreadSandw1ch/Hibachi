@@ -16,18 +16,26 @@ public class Quiz implements BotInteraction{
     private static final int TERMINATING_CHECK = 1000;
     private final ArrayList<Word> mcWordOptions = new ArrayList<>();
     private final ArrayList<String> mcButtonLabels = new ArrayList<>();
-    private final int numQuestions;
+    private int numQuestions;
     private int currentQuestion = 0;
     private int numCorrect = 0;
     private EmbedBuilder embedBuilder;
     private final QuestionTypes[] questionTypes;
-    private final boolean isMultipleChoice;
+    private boolean isMultipleChoice;
 
     public Quiz(UserInfo user) {
         this.user = user;
         numQuestions = user.getNumQuestions();
         questionTypes = user.getQuestionType();
         isMultipleChoice = user.isMultipleChoice();
+    }
+
+    public void setNumQuestions(int num) {
+        numQuestions = num;
+    }
+
+    public void setMultipleChoice(boolean value) {
+        isMultipleChoice = value;
     }
 
     public int getCurrentQuestion() {

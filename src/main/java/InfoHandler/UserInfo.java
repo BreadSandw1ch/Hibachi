@@ -18,7 +18,7 @@ public class UserInfo {
 
     public UserInfo(User user) {
         this.user = user;
-        HashMap<String, String> fileMap = InfoHandler.getFiles();
+        HashMap<String, String> fileMap = InfoHandler.getDefaultFiles();
         files = new ArrayList<>();
         files.addAll(fileMap.values());
         words = new HashMap<>();
@@ -48,6 +48,13 @@ public class UserInfo {
     }
 
     public void setQuestionType(QuestionTypes question, int value) {
+        if (questionType[value] == question) return;
+        for (int i = 0; i < questionType.length; i++) {
+            if (questionType[i] == question) {
+                questionType[i] = questionType[value];
+                break;
+            }
+        }
         questionType[value] = question;
     }
 

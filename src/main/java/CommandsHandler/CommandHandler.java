@@ -14,13 +14,16 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.StringSelectInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.components.ActionComponent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class CommandHandler extends ListenerAdapter {
     /**
@@ -51,16 +54,36 @@ public class CommandHandler extends ListenerAdapter {
             user = new UserInfo(author);
             users.put(author.getIdLong(), user);
         }
-
+        if (user.isInInteraction()) {
+            EmbedBuilder embedBuilder = new EmbedBuilder();
+            embedBuilder.setTitle("Error");
+            embedBuilder.addField("You are already doing something",
+                    "Please close your previous interaction and try again", false);
+            embedBuilder.addField("", "(might replace this section with a feature where the interaction" +
+                    " automatically closes upon using a slash command, but since that is not implemented this" +
+                    " will have to do", false);
+            embedBuilder.setColor(Color.RED);
+            event.reply("").setEmbeds(embedBuilder.build()).queue();
+            return;
+        }
 
             switch (commandName) {
             case "info"-> {
                 EmbedBuilder eb = InfoHandler.botInfo();
                 event.reply(" ").setEmbeds(eb.build()).queue();
             }
-
             case "dictionary" -> {
-                HashMap<String, Word> words = InfoHandler.readFiles(filenames);
+                boolean searchFilter = false;
+                if (!event.getOptions().isEmpty()) {
+                    OptionMapping optionMapping = event.getOptions().get(0);
+                    searchFilter = optionMapping.getAsBoolean();
+                }
+                HashMap<String, Word> words = new HashMap<>();
+                if (searchFilter) {
+                    words.putAll(user.getWords());
+                } else {
+                    words.putAll(InfoHandler.readFiles(filenames));
+                }
                 KanjiDictionary dictionary = new KanjiDictionary(words);
                 EmbedBuilder eb = dictionary.createPage();
                 List<ActionComponent> buttons = dictionary.createComponents();
@@ -110,8 +133,20 @@ public class CommandHandler extends ListenerAdapter {
                 setEphemeral(true).queue();
                 user.setInteraction(config);
             }
-            case "help" ->
-                event.reply("test").queue();
+            case "help" ->{
+                EmbedBuilder eb = new EmbedBuilder();
+                eb.setTitle("Commands List:");
+                eb.addField("Commands: ", """
+                        /info - gets info about this bot
+                        /dictionary (from-user-lists) - creates a dictionary based on either your enabled lists or all lists
+                        /search [keyword] - searches for a given [keyword]
+                        /quiz - starts a quiz
+                        /config - starts a config thing (personal settings)
+                        /help - pulls up a list of commands
+                        """, false);
+                eb.setColor(Color.YELLOW);
+                event.reply("").setEmbeds(eb.build()).queue();
+            }
         }
     }
 
@@ -186,8 +221,7 @@ public class CommandHandler extends ListenerAdapter {
                 event.editMessage("Done!").setEmbeds().queue();
                 userInfo.setInteraction(null);
             } else {
-                int pageNum = Integer.parseInt(event.getComponentId());
-                ((Config) interaction).interact(pageNum, id);
+                ((Config) interaction).interact(id);
                 EmbedBuilder eb = ((Config) interaction).createPage();
                 List<ActionComponent> selectMenu = interaction.createComponents();
                 event.editMessage(" ").setEmbeds(eb.build()).setActionRow(selectMenu).queue();
@@ -226,12 +260,17 @@ public class CommandHandler extends ListenerAdapter {
         List<CommandData> commandData = new ArrayList<>();
         commandData.add(Commands.slash("info", "displays info about this bot"));
         commandData.add(Commands.slash("dictionary", "pulls up a dictionary")
-                .addOption(OptionType.BOOLEAN, "user-lists",
-                        "do you want to only view words from sets you have enabled?"));
-        commandData.add(Commands.slash("quiz", "starts a quiz"));
+                .addOption(OptionType.BOOLEAN, "from-user-lists",
+                        "do you want to only view words from sets you have enabled?" +
+                                " (True: yes; False or empty: No)"));
+        commandData.add(Commands.slash("quiz", "starts a quiz")
+                .addOption(OptionType.INTEGER, "num-questions", "number of questions " +
+                        "(0: Infinite)", false)
+                .addOption(OptionType.BOOLEAN, "is-multiple-choice", "sets whether the questions" +
+                        " are multiple choice", false));
         commandData.add(Commands.slash("config", "allows you to alter quiz configurations"));
         commandData.add(Commands.slash("search", "searches for a given word")
-                .addOption(OptionType.STRING, "keyword", "word (in English, hiragana, " +
+                .addOption(OptionType.STRING, "keyword", "word (in English, kana, " +
                         "or kanji) being searched for", true));
         commandData.add(Commands.slash("help", "gets a list of commands"));
         return commandData;

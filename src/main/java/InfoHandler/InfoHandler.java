@@ -1,6 +1,5 @@
 package InfoHandler;
 
-import com.iwebpp.crypto.TweetNaclFast;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.io.*;
@@ -10,6 +9,10 @@ import java.util.*;
 public class InfoHandler {
 
     private static final HashMap<String, String> files = new HashMap<>();
+    private static final HashMap<String, String> defaultFiles = new HashMap<>();
+    private static final String DEFAULT = "D";
+    private static final String ENABLED = "E";
+    private static final String DISABLED = "X";
     public static HashMap<String, Word> createWords(String filename) {
         HashMap<String, Word> dictionary = new HashMap<>();
         try (
@@ -78,12 +81,12 @@ public class InfoHandler {
         try(BufferedReader reader = new BufferedReader(new FileReader(filename))){
             String line = reader.readLine();
             while(line != null) {
-                if (!line.startsWith("//")) {
-                    String[] fields = line.split("\\|");
-                    String name = fields[0];
-                    String file = fields[1];
-                    files.put(name, file);
-                }
+                String[] fields = line.split("\\|");
+                String name = fields[0];
+                String file = fields[1];
+                String status = fields[2];
+                if (!status.equals(DISABLED)) files.put(name, file);
+                if (status.equals(DEFAULT)) defaultFiles.put(name, file);
                 line = reader.readLine();
             }
         } catch (IOException e) {
@@ -93,6 +96,9 @@ public class InfoHandler {
 
     public static HashMap<String, String> getFiles() {
         return files;
+    }
+    public static HashMap<String, String> getDefaultFiles() {
+        return defaultFiles;
     }
 
     public static EmbedBuilder botInfo() {
