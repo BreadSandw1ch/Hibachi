@@ -98,12 +98,16 @@ public class Quiz implements BotInteraction{
         Random random = new Random();
         int correctChoice = random.nextInt(1,5);
         String question = getAnswerDisplay(0, correct);
-        if (questionTypes[0] == QuestionTypes.MEANINGS) embedBuilder.setTitle("What means \"" + question + "\"?");
-        else {
-            embedBuilder.setTitle("What does " + question + " mean?");
+        switch (questionTypes[0]) {
+            case KANJI -> embedBuilder.setTitle("What does " + question + " mean?");
+            case READINGS -> embedBuilder.setTitle("What can be read as " + question + "?");
+            case MEANINGS -> embedBuilder.setTitle("What means \"" + question + "\"?");
         }
         String[] optionEmotes = new String[]{":one:", ":two:", ":three:", ":four:"};
         int i = 0;
+        embedBuilder.setColor(Color.YELLOW);
+        embedBuilder.setFooter(user.user().getAsTag());
+        if (!isMultipleChoice) return embedBuilder;
         while(i < optionEmotes.length) {
             Word word = getAnswer();
             String answer;
@@ -123,7 +127,6 @@ public class Quiz implements BotInteraction{
             mcButtonLabels.add(answer);
             i++;
         }
-        embedBuilder.setColor(Color.YELLOW);
         return embedBuilder;
     }
 
@@ -161,6 +164,7 @@ public class Quiz implements BotInteraction{
      */
     public List<ActionComponent> createComponents() {
         List<ActionComponent> buttons = new ArrayList<>();
+        if (!isMultipleChoice) return buttons;
         for (int i = 0; i < mcWordOptions.size() && i < 4; i++) {
             buttons.add(Button.primary(String.valueOf(i+1), mcButtonLabels.get(i)));
         }

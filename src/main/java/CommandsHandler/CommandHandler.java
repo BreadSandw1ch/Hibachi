@@ -54,19 +54,7 @@ public class CommandHandler extends ListenerAdapter {
             user = new UserInfo(author);
             users.put(author.getIdLong(), user);
         }
-        if (user.isInInteraction()) {
-            EmbedBuilder embedBuilder = new EmbedBuilder();
-            embedBuilder.setTitle("Error");
-            embedBuilder.addField("You are already doing something",
-                    "Please close your previous interaction and try again", false);
-            embedBuilder.addField("", "(might replace this section with a feature where the interaction" +
-                    " automatically closes upon using a slash command, but since that is not implemented this" +
-                    " will have to do", false);
-            embedBuilder.setColor(Color.RED);
-            event.reply("").setEmbeds(embedBuilder.build()).queue();
-            return;
-        }
-
+        user.setInteraction(null);
             switch (commandName) {
             case "info"-> {
                 EmbedBuilder eb = InfoHandler.botInfo();
@@ -77,6 +65,10 @@ public class CommandHandler extends ListenerAdapter {
                 if (!event.getOptions().isEmpty()) {
                     OptionMapping optionMapping = event.getOptions().get(0);
                     searchFilter = optionMapping.getAsBoolean();
+                    if (searchFilter && user.getWords().isEmpty()) {
+                        event.reply("Do you expect me to create a dictionary out of nothing?").queue();
+                        return;
+                    }
                 }
                 HashMap<String, Word> words = new HashMap<>();
                 if (searchFilter) {
@@ -114,6 +106,10 @@ public class CommandHandler extends ListenerAdapter {
                 user.setInteraction(search);
             }
             case "quiz" -> {
+                if (user.getWords().isEmpty()) {
+                    event.reply("Do you expect me to create a quiz out of nothing?").queue();
+                    return;
+                }
                 Quiz quiz = new Quiz(user);
                 EmbedBuilder eb = quiz.buildQuestion();
                 if (quiz.isMultipleChoice()) {
@@ -197,9 +193,8 @@ public class CommandHandler extends ListenerAdapter {
             } else {
                 int num = Integer.parseInt(id);
                 EmbedBuilder eb = ((KanjiDictionary) interaction).turnPage(num);
-                List<ActionComponent> buttons = interaction.createComponents();
-                event.reply(" ").setEmbeds(eb.build()).addActionRow(buttons).queue();
-                message.delete().queue();
+                //List<ActionComponent> buttons = interaction.createComponents();
+                event.editMessage(" ").setEmbeds(eb.build()).queue();//setActionRow(buttons).queue();
             }
         }
     }
@@ -218,7 +213,7 @@ public class CommandHandler extends ListenerAdapter {
             // getComponent.getId - gets the select menu's id
             String id = event.getInteraction().getSelectedOptions().get(0).getValue();
             if (id.equals("x")) {
-                event.editMessage("Done!").setEmbeds().queue();
+                event.editMessage("Done!").setEmbeds().setComponents().queue();
                 userInfo.setInteraction(null);
             } else {
                 ((Config) interaction).interact(id);
@@ -264,10 +259,11 @@ public class CommandHandler extends ListenerAdapter {
                         "do you want to only view words from sets you have enabled?" +
                                 " (True: yes; False or empty: No)"));
         commandData.add(Commands.slash("quiz", "starts a quiz")
-                .addOption(OptionType.INTEGER, "num-questions", "number of questions " +
-                        "(0: Infinite)", false)
-                .addOption(OptionType.BOOLEAN, "is-multiple-choice", "sets whether the questions" +
-                        " are multiple choice", false));
+        //        .addOption(OptionType.INTEGER, "num-questions", "number of questions " +
+        //                "(0: Infinite)", false)
+        //        .addOption(OptionType.BOOLEAN, "is-multiple-choice", "sets whether the questions" +
+        //                " are multiple choice", false)
+        );
         commandData.add(Commands.slash("config", "allows you to alter quiz configurations"));
         commandData.add(Commands.slash("search", "searches for a given word")
                 .addOption(OptionType.STRING, "keyword", "word (in English, kana, " +

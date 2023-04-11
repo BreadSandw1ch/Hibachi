@@ -12,6 +12,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 public class Config implements BotInteraction {
     /** Variables and their meanings:
@@ -97,8 +98,8 @@ public class Config implements BotInteraction {
         }
 
         if (maxPages > 1) {
-            options.add(new Option(FORWARD, FORWARD));
-            options.add(new Option(BACKWARD, BACKWARD));
+            options.add(new Option("< Previous Page", BACKWARD));
+            options.add(new Option("Next Page >", FORWARD));
         }
         if (pageNum > 0) options.add(new Option("Back", BACK));
 
@@ -194,18 +195,22 @@ public class Config implements BotInteraction {
     private EmbedBuilder filePage() {
         EmbedBuilder eb = new EmbedBuilder();
         eb.setTitle("Files");
-        HashMap<String, String> files = InfoHandler.getFiles();
+        TreeMap<String, String> files = new TreeMap<>(InfoHandler.getFiles());
         ArrayList<String> fileNames = new ArrayList<>(files.keySet());
         int numResults = 0;
         maxPages = (int) Math.ceil(fileNames.size()/10.0);
         for (int i = 0; i < 10 && 10 * subPage + i < fileNames.size(); i++) {
-            String fileName = fileNames.get(i);
+            String fileName = fileNames.get(10 * subPage + i);
             String enabled = " - Disabled";
             if (userInfo.hasFile(files.get(fileName))) {
                 enabled = " - Enabled";
+                options.add(new Option("Disable " + fileName,
+                        files.get(fileName)));
+            } else {
+                options.add(new Option("Enable " + fileName,
+                        files.get(fileName)));
             }
-            eb.addField(fileName + enabled, files.get(fileName), false);
-            options.add(new Option(fileName, files.get(fileName)));
+            eb.addField(fileName, "Current status: " + enabled, false);
             numResults += 1;
         }
         eb.setFooter("Page " + (subPage + 1) + "/" + maxPages + " | Showing Results " +
