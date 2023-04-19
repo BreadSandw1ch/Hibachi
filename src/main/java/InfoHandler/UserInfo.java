@@ -19,8 +19,7 @@ public class UserInfo {
     public UserInfo(User user) {
         this.user = user;
         HashMap<String, String> fileMap = InfoHandler.getDefaultFiles();
-        files = new ArrayList<>();
-        files.addAll(fileMap.values());
+        files = new ArrayList<>(fileMap.values());
         words = new HashMap<>();
         numQuestions = 10;
         isMultipleChoice = true;

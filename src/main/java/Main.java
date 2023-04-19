@@ -10,8 +10,11 @@ import java.util.Scanner;
 
 public class Main extends CommandHandler {
     public static void main(String[] args) {
+        if (args.length < 1) {
+            System.out.println("Need token file");
+        }
         try {
-            File textFile = new File("input/tokenhibachi.txt");
+            File textFile = new File(args[0]);
             Scanner Reader = new Scanner(textFile);
             String token = Reader.nextLine();
             System.out.println("token acquired");

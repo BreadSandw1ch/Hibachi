@@ -85,7 +85,7 @@ public class CommandHandler extends ListenerAdapter {
             case "search" -> {
                 String[] command = event.getCommandString().split("\\s+");
                 String key = command[command.length - 1];
-                HashMap<String, Word> dictionary = user.getWords();
+                HashMap<String, Word> dictionary = InfoHandler.readFiles(filenames);
                 HashMap<String, Word> results = new HashMap<>();
                 if (dictionary.containsKey(key)) {
                     results.put(key, dictionary.get(key));
@@ -169,7 +169,7 @@ public class CommandHandler extends ListenerAdapter {
                 int numQuestions = ((Quiz) interaction).getNumQuestions();
                 Word choice = options.get(choiceNum - 1);
                 EmbedBuilder eb = ((Quiz) interaction).verifyCorrect(choice);
-                message.editMessage(" ").setEmbeds(eb.build()).queue();
+                message.editMessage(" ").setEmbeds(eb.build()).setComponents().queue();
                 if (((Quiz) interaction).getCurrentQuestion() < numQuestions || numQuestions == 0) {
                     eb = ((Quiz) interaction).buildQuestion();
                     if (((Quiz) interaction).isMultipleChoice()) {
@@ -188,6 +188,7 @@ public class CommandHandler extends ListenerAdapter {
         }
         if (interaction instanceof KanjiDictionary) {
             if (id.equals("x")) {
+                message.editMessage(" ").setComponents().queue();
                 event.reply("Closing...").queue();
                 userInfo.setInteraction(null);
             } else {
