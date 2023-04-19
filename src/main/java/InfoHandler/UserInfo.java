@@ -4,13 +4,13 @@ import net.dv8tion.jda.api.entities.User;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Objects;
 
 public class UserInfo {
     private final User user;
     private final Collection<String> files;
-    private HashMap<String, Word> words;
+    private LinkedHashMap<String, Word> words;
     private int numQuestions;
     private boolean isMultipleChoice;
     private final QuestionTypes[] questionType;
@@ -18,9 +18,9 @@ public class UserInfo {
 
     public UserInfo(User user) {
         this.user = user;
-        HashMap<String, String> fileMap = InfoHandler.getDefaultFiles();
+        LinkedHashMap<String, String> fileMap = InfoHandler.getDefaultFiles();
         files = new ArrayList<>(fileMap.values());
-        words = new HashMap<>();
+        words = new LinkedHashMap<>();
         numQuestions = 10;
         isMultipleChoice = true;
         questionType = new QuestionTypes[] {QuestionTypes.KANJI, QuestionTypes.MEANINGS, null};
@@ -77,7 +77,7 @@ public class UserInfo {
         return files;
     }
 
-    public HashMap<String, Word> getWords() {
+    public LinkedHashMap<String, Word> getWords() {
         words = InfoHandler.readFiles(files);
         return words;
     }

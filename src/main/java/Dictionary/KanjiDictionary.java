@@ -8,14 +8,14 @@ import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class KanjiDictionary implements BotInteraction {
     private final ArrayList<Word> wordList;
     private final int maxPages;
     private int currentPage = 0;
-    public KanjiDictionary(HashMap<String, Word> wordMap) {
+    public KanjiDictionary(LinkedHashMap<String, Word> wordMap) {
         wordList = new ArrayList<>();
         wordList.addAll(wordMap.values());
         maxPages = (int) Math.ceil(wordList.size()/10.0);

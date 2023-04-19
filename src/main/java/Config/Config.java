@@ -10,8 +10,8 @@ import net.dv8tion.jda.api.interactions.components.selections.StringSelectMenu;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.TreeMap;
 
 public class Config implements BotInteraction {
     /** Variables and their meanings:
@@ -194,7 +194,7 @@ public class Config implements BotInteraction {
     private EmbedBuilder filePage() {
         EmbedBuilder eb = new EmbedBuilder();
         eb.setTitle("Files");
-        TreeMap<String, String> files = new TreeMap<>(InfoHandler.getFiles());
+        LinkedHashMap<String, String> files = InfoHandler.getFiles();
         ArrayList<String> fileNames = new ArrayList<>(files.keySet());
         int numResults = 0;
         maxPages = (int) Math.ceil(fileNames.size()/10.0);

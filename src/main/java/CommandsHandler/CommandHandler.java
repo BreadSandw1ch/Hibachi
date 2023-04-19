@@ -46,7 +46,7 @@ public class CommandHandler extends ListenerAdapter {
         String commandName = event.getName();
         User author = event.getUser();
         UserInfo user;
-        HashMap<String, String> files = InfoHandler.getFiles();
+        LinkedHashMap<String, String> files = InfoHandler.getFiles();
         Collection<String> filenames = files.values();
         if (users.containsKey(author.getIdLong())) {
             user = users.get(author.getIdLong());
@@ -70,7 +70,7 @@ public class CommandHandler extends ListenerAdapter {
                         return;
                     }
                 }
-                HashMap<String, Word> words = new HashMap<>();
+                LinkedHashMap<String, Word> words = new LinkedHashMap<>();
                 if (searchFilter) {
                     words.putAll(user.getWords());
                 } else {
@@ -85,8 +85,8 @@ public class CommandHandler extends ListenerAdapter {
             case "search" -> {
                 String[] command = event.getCommandString().split("\\s+");
                 String key = command[command.length - 1];
-                HashMap<String, Word> dictionary = InfoHandler.readFiles(filenames);
-                HashMap<String, Word> results = new HashMap<>();
+                LinkedHashMap<String, Word> dictionary = InfoHandler.readFiles(filenames);
+                LinkedHashMap<String, Word> results = new LinkedHashMap<>();
                 if (dictionary.containsKey(key)) {
                     results.put(key, dictionary.get(key));
                 }

@@ -8,13 +8,13 @@ import java.util.*;
 
 public class InfoHandler {
 
-    private static final HashMap<String, String> files = new HashMap<>();
-    private static final HashMap<String, String> defaultFiles = new HashMap<>();
+    private static final LinkedHashMap<String, String> files = new LinkedHashMap<>();
+    private static final LinkedHashMap<String, String> defaultFiles = new LinkedHashMap<>();
     private static final String DEFAULT = "D";
     private static final String ENABLED = "E";
     private static final String DISABLED = "X";
-    public static HashMap<String, Word> createWords(String filename) {
-        HashMap<String, Word> dictionary = new HashMap<>();
+    public static LinkedHashMap<String, Word> createWords(String filename) {
+        LinkedHashMap<String, Word> dictionary = new LinkedHashMap<>();
         try (
                 FileInputStream fis = new FileInputStream(filename);
                 InputStreamReader isr = new InputStreamReader(fis, StandardCharsets.UTF_8);
@@ -38,7 +38,7 @@ public class InfoHandler {
         return dictionary;
     }
 
-    public static void updateWord(String[] fields, HashMap<String, Word> dictionary) {
+    public static void updateWord(String[] fields, LinkedHashMap<String, Word> dictionary) {
         String identifier = fields[0];
         HashSet<String> meanings = new HashSet<>(List.of(fields[1].split(",")));
         if (fields.length > 2) {
@@ -54,7 +54,7 @@ public class InfoHandler {
         }
     }
 
-    public static void addWord(String[] fields, HashMap<String, Word> dictionary) {
+    public static void addWord(String[] fields, LinkedHashMap<String, Word> dictionary) {
         String identifier = fields[0];
         ArrayList<String> meanings = new ArrayList<>(List.of(fields[1].split(",")));
         Word word;
@@ -68,8 +68,8 @@ public class InfoHandler {
         }
     }
 
-    public static HashMap<String, Word> readFiles(Collection<String> filenames) {
-        HashMap<String, Word> dictionary = new HashMap<>();
+    public static LinkedHashMap<String, Word> readFiles(Collection<String> filenames) {
+        LinkedHashMap<String, Word> dictionary = new LinkedHashMap<>();
         for (String file:filenames) {
             String filename = "input/" + file + ".txt";
             dictionary.putAll(createWords(filename));
@@ -94,10 +94,10 @@ public class InfoHandler {
         }
     }
 
-    public static HashMap<String, String> getFiles() {
+    public static LinkedHashMap<String, String> getFiles() {
         return files;
     }
-    public static HashMap<String, String> getDefaultFiles() {
+    public static LinkedHashMap<String, String> getDefaultFiles() {
         return defaultFiles;
     }
 

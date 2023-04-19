@@ -5,10 +5,11 @@ import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class KanjiSearch extends KanjiDictionary{
     private final String search;
-    public KanjiSearch(HashMap<String, Word> wordList, String search) {
+    public KanjiSearch(LinkedHashMap<String, Word> wordList, String search) {
         super(wordList);
         this.search = search;
     }
